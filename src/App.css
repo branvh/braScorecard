@@ -1,0 +1,81 @@
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 
+################### MASTER STYLING - PAGE WIDE DEFAULTS
+ */
+body {
+ background-color: #e7e7e7; 
+}
+
+.appContainer{
+background-color: #e7e7e7;
+height: 100vh;
+margin-left: 5%;
+margin-right: 5%;
+}
+
+/* 
+################### JUMBOTRON, SUBHEADER, AND FOOTER STYLING
+ */
+
+ .ulHeaderText {
+  text-decoration: underline;
+  display: inline;
+ }
+
+.braBanner {
+  background: linear-gradient(to bottom right, #41184f, #814787);
+  color: #e7e7e7;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+#subHeader {
+
+}
+
+#subHeaderText {
+
+}
+
+#footer {
+  border-top: 2px solid #41184f;
+  padding: 10px;
+  font-size: 8px;
+}
+
+/* 
+################## DISCLAIMER
+ */
+
+#disclaimerText {
+  background-color: white;
+  padding: 10px;
+}
+
+#acceptTermsButton {
+  display: block;
+  margin: 0 auto;
+}
+
+/* 
+################## SURVEY STYLING
+ */
+
+.surveySectionContainer {
+
+}
+
+ .surveyContainer {
+
+ }
+
