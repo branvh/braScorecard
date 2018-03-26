@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React  from "react";
 
 const Footer = () => (
 	<div id="footer">
@@ -43,11 +43,9 @@ const Footer = () => (
 			>
 				More information.
 			</a>
-			<p>
 			The authors of this project thank Michael Vu, Fernando Echeverria, and Heather Mlodinow for their contributions to the online incarnation of this work.
 			</p>
 			<br />
-		</p>
 	</div>
 );
 

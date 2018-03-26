@@ -21,6 +21,39 @@ height: 100vh;
 margin-left: 5%;
 margin-right: 5%;
 }
+/* 
+################################################ LOADING SCREEN 
+ */
+
+.loader {
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    position: fixed;
+    z-index: 999;
+    height: 200px;
+    width: 200px;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transform: translate(0, -50%);
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 
 /* 
 ################### JUMBOTRON, SUBHEADER, AND FOOTER STYLING
@@ -79,3 +112,59 @@ margin-right: 5%;
 
  }
 
+.sectionHeader {
+  width: 100%;
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#nextButton {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  display: inline;
+}
+
+/* 
+################### User input - Physique (height, weight, etc.) styling
+ */
+ #physiqueSectionContainer {
+  text-align: center;
+ }
+
+#physiqueElementContainer {
+margin-top: 10px;
+margin-bottom: 10px;
+}
+
+ .physiqueLabel {
+  
+  width: 75px;
+  text-align: left;
+ }
+
+.physiqueInput {
+  border-color ease-in-out .15s,box-shadow ease-in-out .15s
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  border: 1px solid #ccc;
+  line-height: 1.42857143;
+  padding: 6px 12px;
+  display: inline;
+  height: 34px;
+  font-size: 14px;
+}
+
+.physiqueInput:focus {
+  border: none;
+}
+
+.noRedBorder {
+
+}
+
+.redBorder {
+  border: 1px solid red;
+}
