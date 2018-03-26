@@ -65,7 +65,7 @@ class PhysiqueInput extends Component {
 	render() {
 		let phyiqueInputs = this.props.sectionData.map((cur, ind) => {
 			return (
-				<div id="physiqueElementContainer" key={"phsiqueElement" + ind}>
+				<div className="physiqueElementContainer" key={"physiqueElement" + ind}>
 					<label htmlFor={"phyique" + ind} className="physiqueLabel">
 						{cur["label"] + ":"}
 					</label>
@@ -95,7 +95,7 @@ class PhysiqueInput extends Component {
 				<div className="nextButtonContainer">
 					{this.state.isComplete ? (
 						<button
-							className="btn btn-primary"
+							className="btn btn-success"
 							onClick={this.handleSubmit}
 							id="nextButton"
 						>

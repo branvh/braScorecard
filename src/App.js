@@ -4,12 +4,12 @@ import "./App.css";
 import LandingPageDisclaimer from "./components/landingPageDisclaimer.js";
 import Survey from "./components/survey.js";
 import Loader from "./components/Loader.js"
-import {
+/*import {
   BrowserRouter as Router,
   Route,
   Link,
   Redirect
-} from "react-router-dom";
+} from "react-router-dom";*/
 
 /*ajv^6.0.0*/
 

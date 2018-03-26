@@ -172,7 +172,7 @@ let surveyData = {
 	},
 	21: {
 		label: "Valve Replacement/Repair",
-		section: "hitory",
+		section: "history",
 		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
 	},
 	22: {
