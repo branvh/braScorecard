@@ -50,3 +50,12 @@ class App extends Component {
 }
 
 export default App;
+
+
+//###########################################3
+//to do list
+/*
+prevent NaN near line 36 of physiqueInput's element validation function (value could be NaN currently)
+change prior section and next section to show up as arrows or some type of graphic??
+select units in physique tab
+*/

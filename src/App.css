@@ -169,29 +169,43 @@ margin-bottom: 10px;
   border: 1px solid red;
 }
 
+/* 
+############################### Units Styling
+ */
+
+ #unitsLabel {
+  text-align: left;
+  width: 150px;
+  left: 50%;
+  right: 50%;
+  margin-left: -55px;
+ }
+
+#unitsCheckBox {
+  margin-bottom: 0;
+}
 
 /* 
 ############################### Bleeding section styling
  */
- #bleedingSectionContainer {
+ #otherIndicatorsSectionContainer {
   text-align: center;
  }
 
-#bleeindgUL {
+#otherIndicatorsUL {
 
 }
 
-.bleedingElementContainer {
+.checkboxElementContainer {
+text-align: left;
+}
+
+.otherIndicatorsElementLabel {
 
 }
 
-.bleedingElementLabel {
+.otherIndicatorsLabel {
 
-}
-
-.bleedingLabel {
-  display: inline;
-  width: 150px;
 }
 
 .switch {
@@ -250,3 +264,23 @@ input:checked + .slider:before {
 
 .slider.round:before {
  }
+
+
+/* 
+################## Forward & Backward Navigation Buttons
+ */
+
+ .forwardBackwardBtnContainer {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 15px;
+ }
+
+#priorButton {
+  margin-right: 25px;
+}
+
+#priorButton, #nextButton {
+
+}

@@ -4,33 +4,35 @@ class CheckboxSection extends Component {
 	state = {};
 
 	componentWillMount() {
-		this.setState({ values: this.props.defaults });
+		//this.setState({ values: this.props.defaults });
 		console.log(this.props.defaults);
 	}
 
 	handleChange = e => {
 		console.log(e.target.checked);
 		console.log(e.target.id);
-		let newValues = Object.assign({}, this.state.values);
-		newValues[e.target.id] = e.target.checked;
-		this.setState({ values: newValues });
+		//let newValues = Object.assign({}, this.state.values);
+		//newValues[e.target.id] = e.target.checked;
+		//this.setState({ values: newValues });
+		this.props.updateCheckBox(this.props.title, e.target.id, e.target.checked)
 	};
 
 	render() {
+		console.log(this.props.values)
 		let questions = this.props.sectionData.map((cur, ind) => {
 			//a unique id name to link to values stored in state
 			let element = this.props.title + ind;
 			return (
 				<li
-					className={this.props.title + "ElementContainer"}
+					className="checkboxElementContainer"
 					key={this.props.title + "Element" + ind}
 				>
-					<div className={this.props.title + "Label"}>{cur["label"] + ":"}</div>
+					<div className="checkboxLabel">{cur["label"] + ":"}</div>
 					<label className="switch">
 						<input
 							type="checkbox"
 							id={element}
-							checked={this.state.values[element]}
+							checked={this.props.values[element]}
 							onChange={this.handleChange}
 						/>
 						<span className="slider" />
@@ -47,13 +49,6 @@ class CheckboxSection extends Component {
 				<ul className="list-unstyled" id={this.props.title + "UL"}>
 					{questions}
 				</ul>
-				<button
-					className="btn btn-success"
-					onClick={this.handleSubmit}
-					id="nextButton"
-				>
-					Next Section
-				</button>
 			</div>
 		);
 	}
