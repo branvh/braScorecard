@@ -1,5 +1,4 @@
-import React, { Component, Render } from "react";
-import logo from "./logo.svg";
+import React, { Component} from "react";
 import "./App.css";
 import LandingPageDisclaimer from "./components/landingPageDisclaimer.js";
 import Survey from "./components/survey.js";

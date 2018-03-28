@@ -281,6 +281,7 @@ input:checked + .slider:before {
   margin-right: 25px;
 }
 
-#priorButton, #nextButton {
-
+#runAnaylsisButton {
+background-color: #41184f;
+border: #814787;
 }

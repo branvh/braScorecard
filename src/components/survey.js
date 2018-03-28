@@ -9,8 +9,8 @@ import surveyData from "../surveyData.js";
 class Survey extends Component {
 	state = {
 		isComplete: false,
-		currentSection: "physique",
-		sections: ["physique", "otherIndicators","diagnostic"],
+		currentSection: "diagnostic",
+		sections: ["physique", "otherIndicators", "diagnostic"],
 		metric: false, //indicates NOT metric
 		responses: {
 			physique: {
@@ -18,7 +18,20 @@ class Survey extends Component {
 				Weight: false,
 				Age: false
 			},
-			diagnostic: false,
+			diagnostic: {
+				diagnostic0: false,
+				diagnostic1: false,
+				diagnostic2: false,
+				diagnostic3: false,
+				diagnostic4: false
+			},
+			diagnosticDD: {
+				diagnosticDD0: false,
+				diagnosticDD1: false,
+				diagnosticDD2: false,
+				diagnosticDD3: false,
+				diagnosticDD4: false
+			},
 			bleeding: {
 				bleeding0: false,
 				bleeding1: false,
@@ -41,7 +54,7 @@ class Survey extends Component {
 	handleSubmit = (section, data) => {
 		let newResponses = Object.assign({}, this.state.responses);
 		newResponses[section] = data;
-		this.setState({responses: newResponses})
+		this.setState({ responses: newResponses });
 		this.setSection(this.state.currentSection);
 	};
 
@@ -52,24 +65,24 @@ class Survey extends Component {
 	};
 
 	goForward = () => {
-
-		let sectionNum = this.state.sections.indexOf(this.state["currentSection"]);
+		let sectionNum = this.state.sections.indexOf(
+			this.state["currentSection"]
+		);
 		let priorNum = sectionNum + 1;
 		let nextSection = this.state.sections[priorNum];
-		this.setState({currentSection: nextSection})
-
+		this.setState({ currentSection: nextSection });
 	};
 
 	goBackward = () => {
-
-		let sectionNum = this.state.sections.indexOf(this.state["currentSection"]);
+		let sectionNum = this.state.sections.indexOf(
+			this.state["currentSection"]
+		);
 		let priorNum = sectionNum - 1;
 		let nextSection = this.state.sections[priorNum];
-		this.setState({currentSection: nextSection})
-
+		this.setState({ currentSection: nextSection });
 	};
 
-	setSection = (lastSection) => {
+	setSection = lastSection => {
 		//figure out if we are done or what the next section will be
 		if (
 			lastSection === this.state.sections[this.state.sections.length - 1]
@@ -77,17 +90,23 @@ class Survey extends Component {
 			this.setState({ isComplete: true });
 		} else {
 			//move to next section...
-			let sectionNum = this.state.sections.indexOf(this.state["currentSection"]);
+			let sectionNum = this.state.sections.indexOf(
+				this.state["currentSection"]
+			);
 			let nextNum = sectionNum + 1;
 			let nextSection = this.state.sections[nextNum];
-			this.setState({currentSection: nextSection})
+			this.setState({ currentSection: nextSection });
 		}
 		console.log(lastSection);
 	};
 
-	updateUnits = (checked) => {
+	updateUnits = checked => {
+		this.setState({ metric: checked });
+	};
 
-		this.setState({metric: checked})
+	runAnalysis = () => {
+
+		alert(this.state.responses)
 
 	}
 
@@ -159,20 +178,61 @@ class Survey extends Component {
 						/>
 					</div>
 					<div className="forwardBackwardBtnContainer">
-					<button
-					className="btn btn-success"
-					onClick={this.goBackward}
-					id="priorButton"
-				>
-					Prior Section
-				</button>
-				<button
-					className="btn btn-success"
-					onClick={this.goForward}
-					id="nextButton"
-				>
-					Next Section
-				</button>
+						<button
+							className="btn btn-success"
+							onClick={this.goBackward}
+							id="priorButton"
+						>
+							Prior Section
+						</button>
+						<button
+							className="btn btn-success"
+							onClick={this.goForward}
+							id="nextButton"
+						>
+							Next Section
+						</button>
+					</div>
+				</div>
+			);
+		} else if (this.state.currentSection === "diagnostic") {
+			let yesNoQuestions = sectionData.filter(
+				question => question["section"] === "diagnostic"
+			);
+			let dropDownQuestions = sectionData.filter(
+				question => question["section"] === "diagnosticDD"
+			);
+
+			currentSection = (
+				<div className="wrapper">
+					<div className="col-sm-6">
+						<CheckBoxSection
+							title="diagnostic"
+							updateCheckBox={this.updateCheckBox}
+							sectionData={yesNoQuestions}
+							section={"diagnostic"}
+							sectionTitle="Medical History:"
+							defaults={this.state.responses["diagnostic"]}
+							handleSubmit={this.handleSubmit}
+							values={this.state.responses["diagnostic"]}
+						/>
+					</div>
+					<div className="col-sm-6" />
+					<div className="forwardBackwardBtnContainer">
+						<button
+							className="btn btn-success"
+							onClick={this.goBackward}
+							id="priorButton"
+						>
+							Prior Section
+						</button>
+						<button
+							className="btn btn-success"
+							onClick={this.runAnalysis}
+							id="runAnaylsisButton"
+						>
+							Run Analysis
+						</button>
 					</div>
 				</div>
 			);

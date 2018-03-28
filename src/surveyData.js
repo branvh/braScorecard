@@ -82,22 +82,22 @@ let surveyData = {
 	3: {
 		label:
 			"American Society of Anesthesiologists (ASA) Physical Status Classification",
-		section: "diagnostic",
+		section: "diagnosticDD",
 		elements: [{type: "dropDown", data:"select",choices: [1,2,3,4,5]}]
 	},
 	4: { 
 		label: "Smoking Status", 
-		section: "diagnostic", 
+		section: "diagnosticDD", 
 		elements: [{type: "dropDown", data:"select",choices: ["Never", "Not within a year", "Not within 30 days", "Currently smoking"]}]
 		 },
 	5: {
 		label: "Are you having one or both breasts reconstructed?",
-		section: "diagnostic",
+		section: "diagnosticDD",
 		elements: [{type: "dropDown", data: "select", choices:["One", "Both"]}]
 	},
 	6: {
 		label: "Have you had, or do you predict having, radiation therapy?",
-		section: "diagnostic",
+		section: "diagnosticDD",
 		elements: [{type: "dropDown", data: "select", choices: ["No","Uncertain","Yes, before my mastectomy", "Yes, during the tissue expander phase", "Yes, after my reconstruction"]}]
 	},
 	7: {
