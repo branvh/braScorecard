@@ -85,7 +85,6 @@ margin-right: 5%;
   padding: 10px;
   font-size: 8px;
 }
-
 /* 
 ################## DISCLAIMER
  */
@@ -198,6 +197,7 @@ margin-bottom: 10px;
 
 .checkboxElementContainer {
 text-align: left;
+display: block
 }
 
 .otherIndicatorsElementLabel {
@@ -285,3 +285,13 @@ input:checked + .slider:before {
 background-color: #41184f;
 border: #814787;
 }
+
+
+
+/* 
+################# Diagnostic drop-down menus
+ */
+
+ .diagnosticDDSelect {
+
+ }

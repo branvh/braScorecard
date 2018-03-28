@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import SubHeader from "./subHeader.js";
 import Footer from "./footer.js";
 import PhysiqueInput from "./physiqueInput.js";
-import BleedingInput from "./bleedingInput.js";
 import CheckBoxSection from "./checkboxSection.js";
+import DropDownSection from "./dropDownSection.js"
 import surveyData from "../surveyData.js";
 
 class Survey extends Component {
@@ -29,8 +29,7 @@ class Survey extends Component {
 				diagnosticDD0: false,
 				diagnosticDD1: false,
 				diagnosticDD2: false,
-				diagnosticDD3: false,
-				diagnosticDD4: false
+				diagnosticDD3: false
 			},
 			bleeding: {
 				bleeding0: false,
@@ -110,6 +109,14 @@ class Survey extends Component {
 
 	}
 
+	updateDDResponse = (target, val, section) => {
+
+		let newValues = Object.assign({}, this.state.responses);
+		newValues[section][target] = val;
+		this.setState({responses: newValues})
+
+	}
+
 	render() {
 		//store all current questions in an array for passage to child section component
 		let sectionData = [];
@@ -120,6 +127,13 @@ class Survey extends Component {
 				if (
 					surveyData[question]["section"] === "bleeding" ||
 					surveyData[question]["section"] === "history"
+				) {
+					sectionData.push(surveyData[question]);
+				}
+			} else if (this.state.currentSection === "diagnostic") {
+				if (
+					surveyData[question]["section"] === "diagnostic" ||
+					surveyData[question]["section"] === "diagnosticDD"
 				) {
 					sectionData.push(surveyData[question]);
 				}
@@ -156,10 +170,6 @@ class Survey extends Component {
 							sectionData={bleedingQuestions}
 							section={this.state.currentSection}
 							sectionTitle="Bleeding Risk:"
-							defaults={
-								this.state.responses[this.state.currentSection]
-							}
-							handleSubmit={this.handleSubmit}
 							values={this.state.responses["bleeding"]}
 						/>
 					</div>
@@ -170,10 +180,6 @@ class Survey extends Component {
 							sectionData={historyQuestions}
 							section={this.state.currentSection}
 							sectionTitle="Your History:"
-							defaults={
-								this.state.responses[this.state.currentSection]
-							}
-							handleSubmit={this.handleSubmit}
 							values={this.state.responses["history"]}
 						/>
 					</div>
@@ -203,6 +209,13 @@ class Survey extends Component {
 				question => question["section"] === "diagnosticDD"
 			);
 
+			//we can only display the run analysis section if ALL medical history questions are answered in the drop down to the right
+			let sectionComplete = true;
+
+			for (const answer in this.state.responses["diagnosticDD"]) {
+				(!this.state.responses["diagnosticDD"][answer]) ? sectionComplete = false : false;
+			}
+
 			currentSection = (
 				<div className="wrapper">
 					<div className="col-sm-6">
@@ -212,12 +225,19 @@ class Survey extends Component {
 							sectionData={yesNoQuestions}
 							section={"diagnostic"}
 							sectionTitle="Medical History:"
-							defaults={this.state.responses["diagnostic"]}
-							handleSubmit={this.handleSubmit}
 							values={this.state.responses["diagnostic"]}
 						/>
 					</div>
 					<div className="col-sm-6" />
+						<DropDownSection
+							title="diagnosticDD"
+							sectionData={dropDownQuestions}
+							section={"diagnostic"}
+							sectionTitle="Medical History:"
+							handleSubmit={this.handleSubmit}
+							updateDDResponse={this.updateDDResponse}
+							values={this.state.responses["diagnosticDD"]}
+						/>
 					<div className="forwardBackwardBtnContainer">
 						<button
 							className="btn btn-success"
@@ -226,13 +246,13 @@ class Survey extends Component {
 						>
 							Prior Section
 						</button>
-						<button
+						{(sectionComplete) ? <button
 							className="btn btn-success"
 							onClick={this.runAnalysis}
 							id="runAnaylsisButton"
 						>
 							Run Analysis
-						</button>
+						</button> : false}
 					</div>
 				</div>
 			);
