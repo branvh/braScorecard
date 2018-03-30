@@ -9,7 +9,7 @@ import surveyData from "../surveyData.js";
 class Survey extends Component {
 	state = {
 		isComplete: false,
-		currentSection: "diagnostic",
+		currentSection: "physique",
 		sections: ["physique", "otherIndicators", "diagnostic"],
 		metric: false, //indicates NOT metric
 		responses: {

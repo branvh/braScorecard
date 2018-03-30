@@ -236,7 +236,8 @@ margin-bottom: 10px;
  }
 
 #unitsCheckBox {
-  margin-bottom: 0;
+  margin-bottom: -5px;
+  right:  -55px;
 }
 
 /* 
