@@ -169,7 +169,7 @@ class Survey extends Component {
 							updateCheckBox={this.updateCheckBox}
 							sectionData={bleedingQuestions}
 							section={this.state.currentSection}
-							sectionTitle="Bleeding Risk:"
+							sectionTitle="Do You Have Any of These?"
 							values={this.state.responses["bleeding"]}
 						/>
 					</div>
@@ -179,19 +179,19 @@ class Survey extends Component {
 							updateCheckBox={this.updateCheckBox}
 							sectionData={historyQuestions}
 							section={this.state.currentSection}
-							sectionTitle="Your History:"
+							sectionTitle="Have You Had Any Of These?"
 							values={this.state.responses["history"]}
 						/>
 					</div>
 					<div className="forwardBackwardBtnContainer">
-						<button
+											<button
 							className="btn btn-success"
 							onClick={this.goBackward}
 							id="priorButton"
 						>
 							Prior Section
 						</button>
-						<button
+												<button
 							className="btn btn-success"
 							onClick={this.goForward}
 							id="nextButton"
@@ -213,31 +213,35 @@ class Survey extends Component {
 			let sectionComplete = true;
 
 			for (const answer in this.state.responses["diagnosticDD"]) {
-				(!this.state.responses["diagnosticDD"][answer]) ? sectionComplete = false : false;
+				sectionComplete = (!this.state.responses["diagnosticDD"][answer]) ? false : true;
 			}
 
 			currentSection = (
 				<div className="wrapper">
+					<div className="row">
+					<h3 id="lastQuestions">Please Answer the Following</h3>
+					</div>
 					<div className="col-sm-6">
 						<CheckBoxSection
 							title="diagnostic"
 							updateCheckBox={this.updateCheckBox}
 							sectionData={yesNoQuestions}
 							section={"diagnostic"}
-							sectionTitle="Medical History:"
+							sectionTitle={false}
 							values={this.state.responses["diagnostic"]}
 						/>
 					</div>
-					<div className="col-sm-6" />
+					<div className="col-sm-6" >
 						<DropDownSection
 							title="diagnosticDD"
 							sectionData={dropDownQuestions}
 							section={"diagnostic"}
-							sectionTitle="Medical History:"
+							sectionTitle={false}
 							handleSubmit={this.handleSubmit}
 							updateDDResponse={this.updateDDResponse}
 							values={this.state.responses["diagnosticDD"]}
 						/>
+					</div>
 					<div className="forwardBackwardBtnContainer">
 						<button
 							className="btn btn-success"
@@ -269,3 +273,33 @@ class Survey extends Component {
 }
 
 export default Survey;
+/*
+						<button
+							className="btn btn-success"
+							onClick={this.goBackward}
+							id="priorButton"
+						>
+							Prior Section
+						</button>
+												<button
+							className="btn btn-success"
+							onClick={this.goForward}
+							id="nextButton"
+						>
+							Next Section
+						</button>
+											<div className="arrowContainer">
+					<i 
+					className="arrow left"
+					onClick={this.goBackward}
+					id="priorButton"
+					/>
+					</div>
+					<div className="arrowContainer">
+					<i 
+					className="arrow right"
+					onClick={this.goForward}
+					id="nextButton"
+					/>
+					</div>
+*/

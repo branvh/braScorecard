@@ -18,7 +18,7 @@ class DropDownSection extends Component {
 
 			options.push(<option defaultValue="selected" key={element + "Default"}> --select-- </option>)
 
-			cur["elements"][0]["choices"].map( (element, optionInd) => {
+			cur["elements"][0]["choices"].forEach( (element, optionInd) => {
 				options.push(<option className="diagnosticOption" value={element} key={element}>{element}</option>)
 			})
 

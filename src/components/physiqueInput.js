@@ -38,11 +38,11 @@ class PhysiqueInput extends Component {
 		var validity = false;
 		//the initial load + val = false test prevents all boxes from appearing red on the 1st load only
 		if (element === "Height") {
-			if (val > 0 && val < 100 || initialLoad === true && val === false) validity = true;
+			if ((val > 0 && val < 100) || (initialLoad === true && val === false)) validity = true;
 		} else if (element === "Weight") {
-			if (val > 0 && val < 750 || initialLoad === true && val === false) validity = true;
+			if ((val > 0 && val < 750) || (initialLoad === true && val === false)) validity = true;
 		} else if (element === "Age") {
-			if (val > 0 && val < 150 || initialLoad === true && val === false) validity = true;
+			if ((val > 0 && val < 150) || (initialLoad === true && val === false)) validity = true;
 		}
 
 		return validity

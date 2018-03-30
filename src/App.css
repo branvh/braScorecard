@@ -54,6 +54,60 @@ margin-right: 5%;
     }
 }
 
+/* 
+################### Forward & Backward Arrow Styling
+ */
+i {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.box-triangle-right {
+ position:relative;
+ width:50px;
+ height:50px;
+ background-color:#222;
+ transform:translate(-14px, 0) rotate(45deg);
+}
+
+.box-triangle:before {
+ content:'';
+ position:absolute;
+ width:35px;
+ height:70px;
+ background-color:#fff;
+ transform:translate(-5px, 3px) rotate(-45deg); 
+}
+
+.arrowContainer {
+
+}
+
+i:hover{
+  cursor: pointer;  
+}
 
 /* 
 ################### JUMBOTRON, SUBHEADER, AND FOOTER STYLING
@@ -76,8 +130,16 @@ margin-right: 5%;
 
 }
 
-#subHeaderText {
+#lastQuestions {
+  text-align:   center;
+  font-weight:  bold;
+}
 
+#subHeaderText {
+font-weight: bold;
+font-size: 14px;
+color: #814787;
+padding-top:  10px;
 }
 
 #footer {
@@ -117,13 +179,6 @@ margin-right: 5%;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-}
-
-#nextButton {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  text-align: center;
-  display: inline;
 }
 
 /* 
@@ -281,6 +336,13 @@ input:checked + .slider:before {
   margin-right: 25px;
 }
 
+#nextButton, #runAnalysisButton {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  display: inline;
+}
+
 #runAnaylsisButton {
 background-color: #41184f;
 border: #814787;
@@ -293,5 +355,6 @@ border: #814787;
  */
 
  .diagnosticDDSelect {
-
+width: 200px;
+height:   25px;
  }
