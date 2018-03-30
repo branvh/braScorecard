@@ -214,7 +214,9 @@ class Survey extends Component {
 
 			for (const answer in this.state.responses["diagnosticDD"]) {
 				sectionComplete = (!this.state.responses["diagnosticDD"][answer]) ? false : true;
+				if (sectionComplete	=== false) break; //otherwise, we could reset to true if a subsequent answer is true
 			}
+
 
 			currentSection = (
 				<div className="wrapper">

@@ -1,29 +1,46 @@
 import React, { Component } from "react";
 
 class DropDownSection extends Component {
-
 	handleSelect = e => {
 		//console.log(e.target.value);
 		//console.log(e.target.id);
-		this.props.updateDDResponse(e.target.id, e.target.value, this.props.title)
+		this.props.updateDDResponse(
+			e.target.id,
+			e.target.value,
+			this.props.title
+		);
 	};
 
 	render() {
-
 		let questions = this.props.sectionData.map((cur, ind) => {
 			//a unique id name to link to values stored in state
 			let element = this.props.title + ind;
 
-			let options = []
+			let options = [];
 
-			options.push(<option defaultValue="selected" key={element + "Default"}> --select-- </option>)
+			if (
+				this.props.values[element] === false ||
+				this.props.values[element] === undefined
+			) {
+				options.push(
+					<option defaultValue="selected" key={element + "Default"}>
+						{" "}
+						--select--{" "}
+					</option>
+				);
+			}
 
-			cur["elements"][0]["choices"].forEach( (element, optionInd) => {
-				options.push(<option className="diagnosticOption" value={element} key={element}>{element}</option>)
-			})
-
-			//sort the options so that the current selection is on top
-
+			cur["elements"][0]["choices"].forEach((element, optionInd) => {
+				options.push(
+					<option
+						className="diagnosticOption"
+						value={element}
+						key={element}
+					>
+						{element}
+					</option>
+				);
+			});
 
 			return (
 				<li
@@ -34,8 +51,8 @@ class DropDownSection extends Component {
 					<select
 						className={"diagnosticDDSelect"}
 						id={element}
-						ref={element+"DD"}
-						value={this.props.values[ind]}
+						ref={element + "DD"}
+						value={this.props.values[element]}
 						onChange={this.handleSelect}
 					>
 						{options}
