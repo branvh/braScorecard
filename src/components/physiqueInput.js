@@ -123,7 +123,7 @@ class PhysiqueInput extends Component {
 		return (
 			<div className="wrapper" id="physiqueSectionContainer">
 				<div className="sectionHeader">
-					Please tell us about yourself{" "}
+					Please tell us about yourself
 				</div>
 				{phyiqueInputs}
 				<div className="physiqueElementContainer" key={"unitsKey"}>

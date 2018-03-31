@@ -1,193 +1,194 @@
-/*let yesNoLabels = [
-	"Do you have high blood pressure or are you taking medications for high blood pressure?",
-	"Do you have coronary artery disease or peripheral vascular disease?",
-	"Have you been diagnosed with diabetes mellitus?",
-	"Have you experienced difficult, painful, or labored breathing?",
-	"Have you undergone chemotherapy?",
-	"American Society of Anesthesiologists (ASA) Physical Status Classification",
-	"Smoking Status",
-	"Are you having one or both breasts reconstructed?",
-	"Have you had, or do you predict having, radiation therapy?",
-	"Bleeding Risks:",
-	"Vitamin K Deficiency",
-	"Thrombocytopenia",
-	"Hemophilia",
-	"Other Diagnosed Clotting Disorder",
-	"Coumadin, NSAIDs, or Other Anti-Coagulant NOT Discontinued Prior to Surgery",
-	"Chronic Aspirin Therapy",
-	"Balloon Angioplasty",
-	"Stent Placement",
-	"Coronary Artery Bypass Graft",
-	"Valve Replacement/Repair",
-	"Implantation of Pacemaker/Defibrillator",
-	"Other major cardiac surgery"
-];
-
-let dropDownLabels = [
-	"American Society of Anesthesiologists (ASA) Physical Status Classification",
-	"Smoking Status",
-	"Are you having one or both breasts reconstructed?",
-	"Have you had, or do you predict having, radiation therapy?",
-	"Bleeding Risks:"
-];
-
-let yesNoAndDropDown = ["Height", "Weight", "Age"];
-
-let dropDownLabelObj = {
-	0: {
-		label:
-			"American Society of Anesthesiologists (ASA) Physical Status Classification",
-		section: "diagnostic-dd",
-		element: "dropDown",
-		choices: [1,2,3,4,5]
-	},
-	1: { 
-		label: "Smoking Status", 
-		section: "dd", 
-		element: "dropDown",
-		choices: ["Never", "Not within a year", "Not within 30 days", "Currently smoking"]
-		 },
-	2: {
-		label: "Are you having one or both breasts reconstructed?",
-		section: "diagnostic-dd",
-		element: "dropDown",
-		choices: ["One", "Both"]
-	},
-	3: {
-		label: "Have you had, or do you predict having, radiation therapy?",
-		section: "diagnostic-dd",
-		choices: ["No","Uncertain","Yes, before my mastectomy", "Yes, during the tissue expander phase", "Yes, after my reconstruction"]
-	}
-};
-
-let ddAndInputObj = {
-	0: { label: "Height", section: "physique", elements: [{type: "input", data:"numeric", choices: false}, {type: "radio", data:"binary" , choices: ["in", "m"]}] },
-	1: { label: "Weight", section: "physique", elements: [{type: "input", data:"numeric", choices: false}, {type: "radio", data:"binary" , choices: ["lb", "kg"]}] },
-	2: { label: "Age", section: "physique", elements: [{type: "input", data:"numeric", choices: false}] }
-};*/
+//col denotes in which col in a given page the question should render
+//label is the question as visible to the user
+//section aligns to survey sequencing and also results in a unique id fro the question (section + sequence)
+//elements denotes which component should be rendered, data type, and choices - in the event of drop downs 
 
 let surveyData = {
-	0: { 
-		label: "Height", 
-		section: "physique", 
-		elements: [{type: "input", data:"numeric", choices: false}, {type: "radio", data:"binary" , choices: ["in", "m"]}] },
-	1: { 
-		label: "Weight", 
-		section: "physique", 
-		elements: [{type: "input", data:"numeric", choices: false}, {type: "radio", data:"binary" , choices: ["lb", "kg"]}] },
-	2: { 
-		label: "Age", 
-		section: "physique", 
-		elements: [{type: "input", data:"numeric", choices: false}] },
+	0: {
+		col: 1,
+		label: "Height",
+		section: "physique",
+		elements: [{ type: "input", data: "numeric", choices: false }]
+	},
+	1: {
+		col: 1,
+		label: "Weight",
+		section: "physique",
+		elements: [{ type: "input", data: "numeric", choices: false }]
+	},
+	2: {
+		col: 1,
+		label: "Age",
+		section: "physique",
+		elements: [{ type: "input", data: "numeric", choices: false }]
+	},
 	3: {
+		col: 1,
 		label:
 			"American Society of Anesthesiologists (ASA) Physical Status Classification",
-		section: "diagnosticDD",
-		elements: [{type: "dropDown", data:"select",choices: [1,2,3,4,5]}]
+		section: "other",
+		elements: [
+			{ type: "dropDown", data: "select", choices: [1, 2, 3, 4, 5] }
+		]
 	},
-	4: { 
-		label: "Smoking Status", 
-		section: "diagnosticDD", 
-		elements: [{type: "dropDown", data:"select",choices: ["Never", "Not within a year", "Not within 30 days", "Currently smoking"]}]
-		 },
+	4: {
+		col: 1,
+		label: "Smoking Status",
+		section: "other",
+		elements: [
+			{
+				type: "dropDown",
+				data: "select",
+				choices: [
+					"Never",
+					"Not within a year",
+					"Not within 30 days",
+					"Currently smoking"
+				]
+			}
+		]
+	},
 	5: {
+		col: 1,
 		label: "Are you having one or both breasts reconstructed?",
-		section: "diagnosticDD",
-		elements: [{type: "dropDown", data: "select", choices:["One", "Both"]}]
+		section: "other",
+		elements: [
+			{ type: "dropDown", data: "select", choices: ["One", "Both"] }
+		]
 	},
 	6: {
+		col: 1,
 		label: "Have you had, or do you predict having, radiation therapy?",
-		section: "diagnosticDD",
-		elements: [{type: "dropDown", data: "select", choices: ["No","Uncertain","Yes, before my mastectomy", "Yes, during the tissue expander phase", "Yes, after my reconstruction"]}]
+		section: "other",
+		elements: [
+			{
+				type: "dropDown",
+				data: "select",
+				choices: [
+					"No",
+					"Uncertain",
+					"Yes, before my mastectomy",
+					"Yes, during the tissue expander phase",
+					"Yes, after my reconstruction"
+				]
+			}
+		]
 	},
 	7: {
-		label: "Do you have high blood pressure or are you taking medications for high blood pressure?",
+		col: 1,
+		label: "High blood pressure?",
 		section: "diagnostic",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	8: {
-		label: "Do you have coronary artery disease or peripheral vascular disease?",
+		col: 1,
+		label: "Coronary artery disease or peripheral vascular disease?",
 		section: "diagnostic",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	9: {
-		label: "Have you been diagnosed with diabetes mellitus?",
+		col: 1,
+		label: "Diabetes mellitus?",
 		section: "diagnostic",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	10: {
-		label: "Have you experienced difficult, painful, or labored breathing?",
+		col: 1,
+		label: "Dyspnea (difficult, painful, or labored breathing)",
 		section: "diagnostic",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	11: {
+		col: 1,
 		label: "Have you undergone chemotherapy?",
 		section: "diagnostic",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	12: {
+		col: 1,
 		label: "Vitamin K Deficiency",
 		section: "bleeding",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	13: {
+		col: 1,
 		label: "Thrombocytopenia",
 		section: "bleeding",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
-	14: { 
-		label: "Hemophilia", 
-		section: "bleeding", 
-		elements: [{type: "radioButton", data:"binary" , choices: ["in", "m"]}] 
+	14: {
+		col: 1,
+		label: "Hemophilia",
+		section: "bleeding",
+		elements: [{ type: "checkbox", data: "binary", choices: ["in", "m"] }]
 	},
 	15: {
+		col: 1,
 		label: "Other Diagnosed Clotting Disorder",
 		section: "bleeding",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	16: {
-		label: "Coumadin, NSAIDs, or Other Anti-Coagulant NOT Discontinued Prior to Surgery",
+		col: 2,
+		label:
+			"Coumadin, NSAIDs, or Other Anti-Coagulant NOT Discontinued Prior to Surgery",
 		section: "bleeding",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	17: {
-		label: "Chronic Aspirin Therapy",
+		col: 2,
+		label: "Can you stop taking before surgery?",
 		section: "bleeding",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	18: {
-		label: "Balloon Angioplasty",
-		section: "history",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		col: 2,
+		label: "Chronic Aspirin Therapy",
+		section: "bleeding",
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	19: {
-		label: "Stent Placement",
-		section: "history",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		col: 1,
+		label: "Balloon Angioplasty",
+		section: "procedures",
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	20: {
-		label: "Coronary Artery Bypass Graft",
-		section: "history",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		col: 1,
+		label: "Stent Placement",
+		section: "procedures",
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	21: {
-		label: "Valve Replacement/Repair",
-		section: "history",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		col: 1,
+		label: "Coronary Artery Bypass Graft",
+		section: "procedures",
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	22: {
-		label: "Implantation of Pacemaker/Defibrillator",
-		section: "history",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		col: 1,
+		label: "Valve Replacement/Repair",
+		section: "procedures",
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
 	23: {
+		col: 1,
+		label: "Implantation of Pacemaker/Defibrillator",
+		section: "procedures",
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
+	},
+	24: {
+		col: 1,
 		label: "Other major cardiac surgery",
-		section: "history",
-		elements: [{type: "radioButton", data:"binary" , choices: [0,1]}]
+		section: "procedures",
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
+	},
+	25: {
+		col: 1,
+		label: "Blood pressure medication",
+		section: "bleeding",
+		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	}
 };
 
 export default surveyData;
-
-
-
