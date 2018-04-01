@@ -27,9 +27,11 @@ let instructions = {
 			headers: ["Please Answer The Following:"],
 			title: "other"
 		}
-	}
+	},
 	sequence: ["physique", "bleeding", "procedures", "diagnostic", "other"]
 }
+
+export default instructions;
 
 //to do
 /*

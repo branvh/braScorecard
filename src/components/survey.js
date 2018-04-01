@@ -1,58 +1,71 @@
 import React, { Component } from "react";
 import SubHeader from "./subHeader.js";
 import Footer from "./footer.js";
-import PhysiqueInput from "./physiqueInput.js";
-import CheckBoxSection from "./checkboxSection.js";
-import DropDownSection from "./dropDownSection.js"
+import Page from "./page.js"
 import surveyData from "../surveyData.js";
+import instructions from "./surveyInstructions.js"
 
 class Survey extends Component {
 	state = {
 		isComplete: false,
-		currentSection: "physique",
-		sections: ["physique", "otherIndicators", "diagnostic"],
+		currentSection: '',
+		sections: '',
 		metric: false, //indicates NOT metric
-		responses: {
-			physique: {
-				Height: false,
-				Weight: false,
-				Age: false
-			},
-			diagnostic: {
-				diagnostic0: false,
-				diagnostic1: false,
-				diagnostic2: false,
-				diagnostic3: false,
-				diagnostic4: false
-			},
-			diagnosticDD: {
-				diagnosticDD0: false,
-				diagnosticDD1: false,
-				diagnosticDD2: false,
-				diagnosticDD3: false
-			},
-			bleeding: {
-				bleeding0: false,
-				bleeding1: false,
-				bleeding2: false,
-				bleeding3: false,
-				bleeding4: false,
-				bleeding5: false
-			},
-			history: {
-				history0: false,
-				history1: false,
-				history2: false,
-				history3: false,
-				history4: false,
-				history5: false
-			}
-		}
+		responses: ''
 	};
 
-	handleSubmit = (section, data) => {
+	componentWillMount () {
+
+		let blankResponses = this.createDefaultAnswers(surveyData)
+
+		this.setState({
+			currentSection: instructions['sequence'][0],
+			sections: instructions['sequence'],
+			responses: blankResponses
+		});
+
+	}
+
+	createDefaultAnswers = (sourceData) => {
+
+		let responses = {};
+		//take questions from survey, parse into sections and create an object that conntains an object for each sequence which contains the corresponding sections
+		//loop through the sequence key - these are the high level sections - create an set of unique question ids per section
+		instructions['sequence'].forEach((section, secIndex) => {
+
+			let sectionObj = {}
+			let i = 0;
+			//loop through ALL questions and append questions which map to a given section to the section object, they will be id'ed as they appear in sequence in the q data object
+			for (const question in sourceData) {
+
+				if (sourceData[question]['section'] === section) {
+
+					let id = section + i;
+					i++;
+					sectionObj[id] = false
+
+				}
+
+			} // then we will append this subset of questions to the main response object outside of the outer loop
+			responses[section] = sectionObj;
+
+		} );
+
+		return responses;
+
+	}
+
+	updateResponses = (id, response) => { 
+
 		let newResponses = Object.assign({}, this.state.responses);
-		newResponses[section] = data;
+		newResponses[this.state.currentSection][id] = response;
+		this.setState({response: newResponses});
+
+	}
+
+	handleSubmit = (section, id, data) => {
+		let newResponses = Object.assign({}, this.state.responses);
+		newResponses[section][id] = data;
 		this.setState({ responses: newResponses });
 		this.setSection(this.state.currentSection);
 	};
@@ -118,29 +131,29 @@ class Survey extends Component {
 	}
 
 	render() {
+
 		//store all current questions in an array for passage to child section component
 		let sectionData = [];
 		for (const question in surveyData) {
 			if (this.state.currentSection === surveyData[question]["section"]) {
 				sectionData.push(surveyData[question]);
-			} else if (this.state.currentSection === "otherIndicators") {
-				if (
-					surveyData[question]["section"] === "bleeding" ||
-					surveyData[question]["section"] === "history"
-				) {
-					sectionData.push(surveyData[question]);
-				}
-			} else if (this.state.currentSection === "diagnostic") {
-				if (
-					surveyData[question]["section"] === "diagnostic" ||
-					surveyData[question]["section"] === "diagnosticDD"
-				) {
-					sectionData.push(surveyData[question]);
-				}
-			}
+			} 
 		}
 
-		let currentSection;
+		//next we pass down our current section, section headers to be rendered on page, and the section data in order to generate a page
+		let currentPage = <Page 
+							header={instructions['sections'][this.state.currentSection]['headers']}
+							columns={instructions['sections'][this.state.currentSection]['col']}
+							questions={sectionData}
+							metric={this.state.metric}
+							section={this.state.currentSection}
+							updateUnits={this.updateUnits}
+							responses={this.state.responses}
+							updateResponses={this.updateResponses}
+							handleSubmit={this.handleSubmit}
+						/>
+
+		/*let currentSection;
 		//determine which survey section to display
 		if (this.state.currentSection === "physique") {
 			currentSection = (
@@ -263,11 +276,11 @@ class Survey extends Component {
 				</div>
 			);
 		}
-
+*/
 		return (
 			<div className="surveySectionContainer">
 				<SubHeader />
-				<div className="surveyContainer">{currentSection}</div>
+				<div className="surveyContainer">{currentPage}</div>
 				<Footer />
 			</div>
 		);

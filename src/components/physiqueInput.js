@@ -2,6 +2,107 @@ import React, { Component } from "react";
 
 class PhysiqueInput extends Component {
 	state = {
+	}
+
+	componentWillMount() {
+
+		let validityObj = {};
+
+		//this will work as the app will only let one move forward if all responses are valid and thus can only move backward to a set of previously all valid responses that would mount
+		for (const response in this.props.responses) {
+
+			validityObj[response] = true;
+
+		}
+
+		this.setState({validity: validityObj});
+
+	}
+
+	handleChange = (e) => {
+
+		console.log(e.target.id)
+		console.log(e.target.value)
+
+		//validate - triggering red borders as applicable
+		this.validate(e.target.id, e.target.value);
+
+		//then push the responses up to state
+		this.props.updateResponses(e.target.id, e.target.value)
+	}
+
+	validate = (id, val) => {
+
+		if (val <= 0 || val > 1000 || val === false || val === '' || val === undefined) {
+
+			let newValidity = Object.assign({}, this.state.validity);
+
+			newValidity[id] = false;
+
+			this.setState({validity: newValidity});
+
+		}
+
+	}
+
+	render() {
+
+		//questions, section, responses, metric, 
+		//display the questions
+		let questionArray = this.props.questions.map((q, ind) => {
+
+			let questionID = q['section'] + ind;
+			let displayObject;
+
+			if (q['elements'][0]["type"] === "input") {
+
+				return (
+
+				<div className="physiqueElementContainer" key={this.props.section + "Element" + ind}>
+					<label htmlFor={questionID} className={this.props.section + "Label"}>
+						{q["label"] + ":"}
+					</label>
+					<input
+						className={
+							this.state.validity[questionID]
+								? "physiqueInput noRedBorder"
+								: "physiqueInput redBorder"
+						}
+						type="number"
+						step="1"
+						min="0"
+						id={questionID}
+						value={this.props.responses[questionID]}
+						onChange={this.handleChange}
+					/>
+				</div>
+
+					)
+
+			}
+
+
+		})
+
+		//stopped - push the metric switch
+
+
+		return (
+
+			questionArray
+
+			)
+
+	}
+
+}
+
+export default PhysiqueInput;
+
+
+
+/*class PhysiqueInput extends Component {
+	state = {
 		validity: {
 			Height: true,
 			Weight: true,
@@ -146,7 +247,7 @@ class PhysiqueInput extends Component {
 							onClick={this.handleSubmit}
 							id="nextButton"
 						>
-							Next Section
+							Forward
 						</button>
 					) : (
 						false
@@ -155,6 +256,4 @@ class PhysiqueInput extends Component {
 			</div>
 		);
 	}
-}
-
-export default PhysiqueInput;
+}*/
