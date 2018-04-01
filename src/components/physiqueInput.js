@@ -45,6 +45,12 @@ class PhysiqueInput extends Component {
 
 	}
 
+	handleUnitSelection = (e) => {
+
+		this.props.updateUnits();
+
+	}
+
 	render() {
 
 		//questions, section, responses, metric, 
@@ -52,7 +58,6 @@ class PhysiqueInput extends Component {
 		let questionArray = this.props.questions.map((q, ind) => {
 
 			let questionID = q['section'] + ind;
-			let displayObject;
 
 			if (q['elements'][0]["type"] === "input") {
 
@@ -79,13 +84,32 @@ class PhysiqueInput extends Component {
 
 					)
 
-			}
+			} else return false
 
 
 		})
 
 		//stopped - push the metric switch
+		let metricSection = ((checked, changeFN) => {
 
+			return(	<div className="physiqueElementContainer" key={"metricKey"}>
+					<label htmlFor={"units"} id="unitsLabel">
+						{"Metric (Meter / KG)?"}
+					</label>
+					<label className="switch" id="unitsCheckBox">
+						<input
+							type="checkbox"
+							checked={checked}
+							onChange={changeFN}
+						/>
+						<span className="slider" />
+					</label>
+					</div>
+				)
+
+			})(this.props.metric,this.handleUnitSelection)
+
+		questionArray.push(metricSection)
 
 		return (
 

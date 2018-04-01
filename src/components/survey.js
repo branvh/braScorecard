@@ -112,8 +112,8 @@ class Survey extends Component {
 		console.log(lastSection);
 	};
 
-	updateUnits = checked => {
-		this.setState({ metric: checked });
+	updateUnits = () => {
+		this.setState({ metric: !this.state.metric });
 	};
 
 	runAnalysis = () => {
