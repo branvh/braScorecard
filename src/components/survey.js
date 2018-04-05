@@ -64,9 +64,12 @@ class Survey extends Component {
 		newResponses[this.state.currentSection][id] = response;
 
 		let isComplete = false;
+		let showForward = true;
 		//if we are on the last section, determine if we must show the finish button
-		if (this.state.currentSection === this.state.sections[this.state.sections.length - 1]) {
-
+		if (this.state.isComplete) {
+			isComplete = true //this way we don't override an already completed form - which can't be uncompleted since final drop down selects prevent this
+		} else if (this.state.currentSection === this.state.sections[this.state.sections.length - 1]) {
+			showForward = false;
 			for (const q in this.state.responses[this.state.currentSection]) {
 
 				if (this.state.responses[this.state.currentSection][q] === false) {
@@ -86,18 +89,22 @@ class Survey extends Component {
 
 			for (const q in this.state.responses[this.state.currentSection]) {
 
-				if (this.state.responses[this.state.currentSection][q] === false) {
+				if (this.state.responses[this.state.currentSection][q] === false || this.state.responses[this.state.currentSection][q] === '') {
 					physiqueComplete = false;
+					showForward = false;
 					break;
 				} else {
+					showForward = true;
 					physiqueComplete = true;
 				}
 
 			}
 
-		}
+		} 
 
-		this.setState({response: newResponses, isComplete: isComplete, finishButton: isComplete, forwardButton: physiqueComplete});
+		let showFinish = (this.state.currentSection === this.state.sections[this.state.sections.length - 1] && isComplete)
+
+		this.setState({response: newResponses, isComplete: isComplete, finishButton: showFinish, forwardButton: showForward});
 
 	}
 
@@ -110,8 +117,9 @@ class Survey extends Component {
 		let nextSection = this.state.sections[priorNum];
 		let showForwardButton = (this.state.currentSection === this.state.sections[this.state.sections.length - 2]) ? false : true;
 		let showBackwardButton = true;
+		let finishButton = (this.state.isComplete && this.state.currentSection === this.state.sections[this.state.sections.length - 2]) ? true : false;
 
-		this.setState({ currentSection: nextSection, forwardButton: showForwardButton, backwardButton: showBackwardButton });
+		this.setState({ currentSection: nextSection, forwardButton: showForwardButton, backwardButton: showBackwardButton, finishButton: finishButton });
 	};
 
 	goBackward = () => {
@@ -123,8 +131,9 @@ class Survey extends Component {
 		let nextSection = this.state.sections[priorNum];
 		let showForwardButton = true;
 		let showBackwardButton = (this.state.currentSection === this.state.sections[1]) ? false : true;
+		let finishButton = false;
 
-		this.setState({ currentSection: nextSection, forwardButton: showForwardButton, backwardButton: showBackwardButton });
+		this.setState({ currentSection: nextSection, forwardButton: showForwardButton, backwardButton: showBackwardButton, finishButton: finishButton });
 
 	};
 
