@@ -137,7 +137,7 @@ let surveyData = {
 	},
 	17: {
 		col: 2,
-		label: "Can you stop taking before surgery?",
+		label: "If yes, can you stop taking the above medication(s) before surgery?",
 		section: "bleeding",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},

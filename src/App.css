@@ -362,18 +362,11 @@ height:   25px;
 
 
  /* 
-################# Column styling
+################# Column styling for page component
   */
 
 .oneCol {
   width: 50%;
   margin: 0 auto;
   text-align: center;
-  }
-
-  .twoCol {
-    display: inline-block;
-    width: 40%;
-    text-align: left;
-    height: 90vh;
   }

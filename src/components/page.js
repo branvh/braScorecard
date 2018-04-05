@@ -24,10 +24,10 @@ class Page extends Component {
 				colClass = "oneCol";
 				break;
 			case 2:
-				colClass = "twoCol";
+				colClass = "col-lg-6 col-md-6 col-sm-6";
 				break;
 			case 3:
-				colClass = "threeCol";
+				colClass = "col-lg-4 col-md-4 col-sm-4";
 				break;
 			default:
 				colClass = "oneCol";
@@ -69,7 +69,11 @@ class Page extends Component {
 					switch (q['elements'][0]['type']) {
 						case 'dropDown' :
 							element  = <DropDownSection 
-
+										key={uuidv4()}
+										sectionData={q}
+										title={this.props.section}
+										id={q['id']}
+										value={this.props.responses[this.props.section][q['id']]}
 										/>
 										break;
 						case 'checkbox':
@@ -77,7 +81,6 @@ class Page extends Component {
 										key={uuidv4()}
 										sectionData={q}
 										title={this.props.section}
-										col={i}
 										id={q['id']}
 										value={this.props.responses[this.props.section][q['id']]}
 										/>

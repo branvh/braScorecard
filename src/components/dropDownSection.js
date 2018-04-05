@@ -1,36 +1,34 @@
 import React, { Component } from "react";
+import uuidv4 from 'uuid/v4';
 
 class DropDownSection extends Component {
 	handleSelect = e => {
 		//console.log(e.target.value);
 		//console.log(e.target.id);
-		this.props.updateDDResponse(
+/*		this.props.updateDDResponse(
 			e.target.id,
 			e.target.value,
 			this.props.title
-		);
+		);*/
 	};
 
 	render() {
-		let questions = this.props.sectionData.map((cur, ind) => {
-			//a unique id name to link to values stored in state
-			let element = this.props.title + ind;
 
 			let options = [];
 
 			if (
-				this.props.values[element] === false ||
-				this.props.values[element] === undefined
+				this.props.value === false ||
+				this.props.value === undefined
 			) {
 				options.push(
-					<option defaultValue="selected" key={element + "Default"}>
+					<option defaultValue="selected" key={uuidv4()}>
 						{" "}
 						--select--{" "}
 					</option>
 				);
 			}
 
-			cur["elements"][0]["choices"].forEach((element, optionInd) => {
+			this.props.sectionData["elements"][0]["choices"].forEach((element, optionInd) => {
 				options.push(
 					<option
 						className="diagnosticOption"
@@ -42,34 +40,26 @@ class DropDownSection extends Component {
 				);
 			});
 
-			return (
+			let question = (
 				<li
 					className="checkboxElementContainer"
-					key={this.props.title + "Element" + ind}
+					key={this.props.id}
 				>
-					<div className="checkboxLabel">{cur["label"] + ":"}</div>
+					<div className="checkboxLabel">{this.props.sectionData['label']}</div>
 					<select
 						className={"diagnosticDDSelect"}
-						id={element}
-						ref={element + "DD"}
-						value={this.props.values[element]}
+						id={this.props.id}
+						value={this.props.value}
 						onChange={this.handleSelect}
 					>
 						{options}
 					</select>
 				</li>
 			);
-		});
 
 		return (
-			<div
-				className="wrapper"
-				id={this.props.section + "SectionContainer"}
-			>
-				<div className="sectionHeader">{this.props.sectionTitle}</div>
-				<ul className="list-unstyled" id={this.props.title + "UL"}>
-					{questions}
-				</ul>
+			<div style={{display: 'inline'}}>
+			{question}
 			</div>
 		);
 	}
@@ -78,3 +68,38 @@ class DropDownSection extends Component {
 export default DropDownSection;
 
 //<option defaultValue={(this.props.values[ind] === false) ? "selected" : false}> --select-- </option>
+
+/*class CheckboxSection extends Component {
+
+	handleChange = e => {
+		//this.props.updateCheckBox(this.props.title, e.target.id, e.target.checked)
+	};
+
+	render() {
+			let question = <li
+					className="checkboxElementContainer"
+					key={this.props.id}
+				>
+					<div className="checkboxLabel">{this.props.sectionData['label']}</div>
+					<label className="switch">
+						<input
+							type="checkbox"
+							id={this.props.id}
+							checked={this.props.value}
+							onChange={this.handleChange}
+						/>
+						<span className="slider" />
+					</label>
+				</li>
+
+		return (
+			<div style={{display: 'inline'}}>
+			{question}
+			</div>
+		);
+	}
+}
+
+export default CheckboxSection;*/
+
+
