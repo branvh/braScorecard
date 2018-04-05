@@ -18,7 +18,7 @@ class Footer extends Component {
 
 	render (){
 		return (
-	<div>
+	<div id="footerContainer" >
 		<div className="row">
 			<div className="forwardBackwardBtnContainer">
 						{(this.props.showBackward) ? <button

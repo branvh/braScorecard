@@ -17,9 +17,11 @@ body {
 
 .appContainer{
 background-color: #e7e7e7;
-height: 100vh;
+height: 95vh;
+min-height: 100%;
 margin-left: 5%;
 margin-right: 5%;
+position: relative;
 }
 /* 
 ################################################ LOADING SCREEN 
@@ -54,63 +56,10 @@ margin-right: 5%;
     }
 }
 
-/* 
-################### Forward & Backward Arrow Styling
- */
-i {
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-}
 
-.right {
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-}
-
-.left {
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
-}
-
-.up {
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-}
-
-.down {
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-}
-
-.box-triangle-right {
- position:relative;
- width:50px;
- height:50px;
- background-color:#222;
- transform:translate(-14px, 0) rotate(45deg);
-}
-
-.box-triangle:before {
- content:'';
- position:absolute;
- width:35px;
- height:70px;
- background-color:#fff;
- transform:translate(-5px, 3px) rotate(-45deg); 
-}
-
-.arrowContainer {
-
-}
-
-i:hover{
-  cursor: pointer;  
-}
 
 /* 
-################### JUMBOTRON, SUBHEADER, AND FOOTER STYLING
+################### JUMBOTRON, SUBHEADER STYLING
  */
 
  .ulHeaderText {
@@ -144,13 +93,6 @@ color: #814787;
 padding-top:  10px;
 }
 
-#footer {
-  border-top: 2px solid #41184f;
-  padding: 10px;
-  font-size: 8px;
-  position: absolute;
-  bottom: 0;
-}
 /* 
 ################## DISCLAIMER
  */
@@ -174,7 +116,7 @@ padding-top:  10px;
 }
 
  .surveyContainer {
-
+  padding-bottom: 100px;
  }
 
 .sectionHeader {
@@ -335,25 +277,51 @@ input:checked + .slider:before {
   width: 100%;
   text-align: center;
   margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  bottom: 0px;
  }
 
 #priorButton {
+  width: 100px;
   margin-right: 25px;
+  text-align: center;
+  padding: 5px;
+    display: inline;
 }
 
-#nextButton, #runAnalysisButton {
-  margin-top: 5px;
-  margin-bottom: 5px;
+#nextButton {
+  width: 100px;
   text-align: center;
-  display: inline;
+  padding: 5px;
+    display: inline;
 }
+
 
 #runAnaylsisButton {
-background-color: #41184f;
+    width: 100px;
+  text-align: center;
+  padding: 5px;
+    display: inline;
+    background-color: #41184f;
 border: #814787;
 }
 
+#footer {
+  border-top: 2px solid #41184f;
+  padding: 10px;
+  font-size: 8px;
+  position: relative;
+  bottom: 0;
+}
 
+#footerContainer {
+  position: absolute;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+}
 
 /* 
 ################# Diagnostic drop-down menus

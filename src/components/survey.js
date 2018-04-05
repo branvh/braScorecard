@@ -12,8 +12,8 @@ class Survey extends Component {
 		sections: '',
 		metric: false, //indicates NOT metric
 		responses: '',
-		backwardButton: false,
-		forwardButton: false,
+		backwardButton: true,
+		forwardButton: true,
 		finishButton: false
 	};
 
@@ -22,7 +22,7 @@ class Survey extends Component {
 		let blankResponses = this.createDefaultAnswers(surveyData)
 
 		this.setState({
-			currentSection: instructions['sequence'][0],
+			currentSection: 'bleeding', // instructions['sequence'][0],
 			sections: instructions['sequence'],
 			responses: blankResponses
 		});
