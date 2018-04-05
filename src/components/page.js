@@ -8,14 +8,9 @@ import uuidv4 from 'uuid/v4';
 
 class Page extends Component {
 
-	state={
-		backwardButton: false,
-		forwardButton: false
-	}
 
 	render () {
 
-		console.log(this.props)
 		let numCol = this.props.columns;
 		let colClass; //determines spacing on page
 
@@ -39,7 +34,7 @@ class Page extends Component {
 
 		if (this.props.section === "physique") {
 			let output = 
-						<div className={colClass}>
+						<div className={colClass} key={uuidv4()}>
 							<PhysiqueInput
 								questions={this.props.questions}
 								section={this.props.section}
@@ -74,6 +69,7 @@ class Page extends Component {
 										title={this.props.section}
 										id={q['id']}
 										value={this.props.responses[this.props.section][q['id']]}
+										updateDDResponse={this.props.updateResponses}
 										/>
 										break;
 						case 'checkbox':
@@ -83,6 +79,7 @@ class Page extends Component {
 										title={this.props.section}
 										id={q['id']}
 										value={this.props.responses[this.props.section][q['id']]}
+										updateCheckBox={this.props.updateResponses}
 										/>
 										break;
 					}
@@ -92,7 +89,7 @@ class Page extends Component {
 				})
 
 				//
-				let section =  (<div className={colClass}>
+				let section =  (<div className={colClass} key={uuidv4()}>
 				<div className="wrapper" id={this.props.section + "SectionContainer"}>
 				<div className="sectionHeader">
 					{this.props.header[i - 1]}

@@ -3,13 +3,10 @@ import uuidv4 from 'uuid/v4';
 
 class DropDownSection extends Component {
 	handleSelect = e => {
-		//console.log(e.target.value);
-		//console.log(e.target.id);
-/*		this.props.updateDDResponse(
+		this.props.updateDDResponse(
 			e.target.id,
-			e.target.value,
-			this.props.title
-		);*/
+			e.target.value
+		);
 	};
 
 	render() {

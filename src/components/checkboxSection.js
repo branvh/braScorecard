@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class CheckboxSection extends Component {
 
 	handleChange = e => {
-		//this.props.updateCheckBox(this.props.title, e.target.id, e.target.checked)
+		this.props.updateCheckBox(e.target.id, e.target.checked)
 	};
 
 	render() {

@@ -11,7 +11,10 @@ class Survey extends Component {
 		currentSection: '',
 		sections: '',
 		metric: false, //indicates NOT metric
-		responses: ''
+		responses: '',
+		backwardButton: false,
+		forwardButton: false,
+		finishButton: false
 	};
 
 	componentWillMount () {
@@ -19,7 +22,7 @@ class Survey extends Component {
 		let blankResponses = this.createDefaultAnswers(surveyData)
 
 		this.setState({
-			currentSection: 'procedures', //instructions['sequence'][0],
+			currentSection: instructions['sequence'][0],
 			sections: instructions['sequence'],
 			responses: blankResponses
 		});
@@ -59,74 +62,79 @@ class Survey extends Component {
 
 		let newResponses = Object.assign({}, this.state.responses);
 		newResponses[this.state.currentSection][id] = response;
-		this.setState({response: newResponses});
+
+		let isComplete = false;
+		//if we are on the last section, determine if we must show the finish button
+		if (this.state.currentSection === this.state.sections[this.state.sections.length - 1]) {
+
+			for (const q in this.state.responses[this.state.currentSection]) {
+
+				if (this.state.responses[this.state.currentSection][q] === false) {
+					isComplete = false;
+					break;
+				} else {
+					isComplete = true;
+				}
+
+			}
+
+		}
+
+		let physiqueComplete = false;
+		//don't show forward button on physique page if all responses aren't populated
+		if (this.state.currentSection === 'physique') {
+
+			for (const q in this.state.responses[this.state.currentSection]) {
+
+				if (this.state.responses[this.state.currentSection][q] === false) {
+					physiqueComplete = false;
+					break;
+				} else {
+					physiqueComplete = true;
+				}
+
+			}
+
+		}
+
+		this.setState({response: newResponses, isComplete: isComplete, finishButton: isComplete, forwardButton: physiqueComplete});
 
 	}
-
-	handleSubmit = (section, id, data) => {
-		let newResponses = Object.assign({}, this.state.responses);
-		newResponses[section][id] = data;
-		this.setState({ responses: newResponses });
-		this.setSection(this.state.currentSection);
-	};
-
-	updateCheckBox = (section, element, value) => {
-		let newState = Object.assign({}, this.state);
-		newState["responses"][section][element] = value;
-		this.setState({ newState });
-	};
 
 	goForward = () => {
 		let sectionNum = this.state.sections.indexOf(
 			this.state["currentSection"]
 		);
+
 		let priorNum = sectionNum + 1;
 		let nextSection = this.state.sections[priorNum];
-		this.setState({ currentSection: nextSection });
+		let showForwardButton = (this.state.currentSection === this.state.sections[this.state.sections.length - 2]) ? false : true;
+		let showBackwardButton = true;
+
+		this.setState({ currentSection: nextSection, forwardButton: showForwardButton, backwardButton: showBackwardButton });
 	};
 
 	goBackward = () => {
 		let sectionNum = this.state.sections.indexOf(
 			this.state["currentSection"]
 		);
+
 		let priorNum = sectionNum - 1;
 		let nextSection = this.state.sections[priorNum];
-		this.setState({ currentSection: nextSection });
-	};
+		let showForwardButton = true;
+		let showBackwardButton = (this.state.currentSection === this.state.sections[1]) ? false : true;
 
-	setSection = lastSection => {
-		//figure out if we are done or what the next section will be
-		if (
-			lastSection === this.state.sections[this.state.sections.length - 1]
-		) {
-			this.setState({ isComplete: true });
-		} else {
-			//move to next section...
-			let sectionNum = this.state.sections.indexOf(
-				this.state["currentSection"]
-			);
-			let nextNum = sectionNum + 1;
-			let nextSection = this.state.sections[nextNum];
-			this.setState({ currentSection: nextSection });
-		}
-		console.log(lastSection);
+		this.setState({ currentSection: nextSection, forwardButton: showForwardButton, backwardButton: showBackwardButton });
+
 	};
 
 	updateUnits = () => {
 		this.setState({ metric: !this.state.metric });
 	};
 
-	runAnalysis = () => {
+	finish = () => {
 
 		alert(this.state.responses)
-
-	}
-
-	updateDDResponse = (target, val, section) => {
-
-		let newValues = Object.assign({}, this.state.responses);
-		newValues[section][target] = val;
-		this.setState({responses: newValues})
 
 	}
 
@@ -153,168 +161,21 @@ class Survey extends Component {
 							handleSubmit={this.handleSubmit}
 						/>
 
-		/*let currentSection;
-		//determine which survey section to display
-		if (this.state.currentSection === "physique") {
-			currentSection = (
-				<PhysiqueInput
-					sectionData={sectionData}
-					section={this.state.currentSection}
-					defaults={this.state.responses[this.state.currentSection]}
-					handleSubmit={this.handleSubmit}
-					updateUnits={this.updateUnits}
-					metric={this.state.metric}
-				/>
-			);
-		} else if (this.state.currentSection === "otherIndicators") {
-			let bleedingQuestions = sectionData.filter(
-				question => question["section"] === "bleeding"
-			);
-			let historyQuestions = sectionData.filter(
-				question => question["section"] === "history"
-			);
-
-			currentSection = (
-				<div className="wrapper">
-					<div className="col-sm-6">
-						<CheckBoxSection
-							title="bleeding"
-							updateCheckBox={this.updateCheckBox}
-							sectionData={bleedingQuestions}
-							section={this.state.currentSection}
-							sectionTitle="Do You Have Any of These?"
-							values={this.state.responses["bleeding"]}
-						/>
-					</div>
-					<div className="col-sm-6">
-						<CheckBoxSection
-							title="history"
-							updateCheckBox={this.updateCheckBox}
-							sectionData={historyQuestions}
-							section={this.state.currentSection}
-							sectionTitle="Have You Had Any Of These?"
-							values={this.state.responses["history"]}
-						/>
-					</div>
-					<div className="forwardBackwardBtnContainer">
-											<button
-							className="btn btn-success"
-							onClick={this.goBackward}
-							id="priorButton"
-						>
-							Prior Section
-						</button>
-												<button
-							className="btn btn-success"
-							onClick={this.goForward}
-							id="nextButton"
-						>
-							Next Section
-						</button>
-					</div>
-				</div>
-			);
-		} else if (this.state.currentSection === "diagnostic") {
-			let yesNoQuestions = sectionData.filter(
-				question => question["section"] === "diagnostic"
-			);
-			let dropDownQuestions = sectionData.filter(
-				question => question["section"] === "diagnosticDD"
-			);
-
-			//we can only display the run analysis section if ALL medical history questions are answered in the drop down to the right
-			let sectionComplete = true;
-
-			for (const answer in this.state.responses["diagnosticDD"]) {
-				sectionComplete = (!this.state.responses["diagnosticDD"][answer]) ? false : true;
-				if (sectionComplete	=== false) break; //otherwise, we could reset to true if a subsequent answer is true
-			}
-
-
-			currentSection = (
-				<div className="wrapper">
-					<div className="row">
-					<h3 id="lastQuestions">Please Answer the Following</h3>
-					</div>
-					<div className="col-sm-6">
-						<CheckBoxSection
-							title="diagnostic"
-							updateCheckBox={this.updateCheckBox}
-							sectionData={yesNoQuestions}
-							section={"diagnostic"}
-							sectionTitle={false}
-							values={this.state.responses["diagnostic"]}
-						/>
-					</div>
-					<div className="col-sm-6" >
-						<DropDownSection
-							title="diagnosticDD"
-							sectionData={dropDownQuestions}
-							section={"diagnostic"}
-							sectionTitle={false}
-							handleSubmit={this.handleSubmit}
-							updateDDResponse={this.updateDDResponse}
-							values={this.state.responses["diagnosticDD"]}
-						/>
-					</div>
-					<div className="forwardBackwardBtnContainer">
-						<button
-							className="btn btn-success"
-							onClick={this.goBackward}
-							id="priorButton"
-						>
-							Prior Section
-						</button>
-						{(sectionComplete) ? <button
-							className="btn btn-success"
-							onClick={this.runAnalysis}
-							id="runAnaylsisButton"
-						>
-							Run Analysis
-						</button> : false}
-					</div>
-				</div>
-			);
-		}
-*/
 		return (
 			<div className="surveySectionContainer">
 				<SubHeader />
 				<div className="surveyContainer">{currentPage}</div>
-				<Footer />
+				<Footer 
+					showForward = {this.state.forwardButton}
+					showBackward = {this.state.backwardButton}
+					showFinish = {this.state.finishButton}
+					goForward={this.goForward}
+					goBackward={this.goBackward}
+					finish={this.finish}
+				/>
 			</div>
 		);
 	}
 }
 
 export default Survey;
-/*
-						<button
-							className="btn btn-success"
-							onClick={this.goBackward}
-							id="priorButton"
-						>
-							Prior Section
-						</button>
-												<button
-							className="btn btn-success"
-							onClick={this.goForward}
-							id="nextButton"
-						>
-							Next Section
-						</button>
-											<div className="arrowContainer">
-					<i 
-					className="arrow left"
-					onClick={this.goBackward}
-					id="priorButton"
-					/>
-					</div>
-					<div className="arrowContainer">
-					<i 
-					className="arrow right"
-					onClick={this.goForward}
-					id="nextButton"
-					/>
-					</div>
-*/
