@@ -359,3 +359,21 @@ border: #814787;
 width: 200px;
 height:   25px;
  }
+
+
+ /* 
+################# Column styling
+  */
+
+.oneCol {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  }
+
+  .twoCol {
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+    height: 90vh;
+  }

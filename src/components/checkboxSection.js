@@ -3,41 +3,29 @@ import React, { Component } from "react";
 class CheckboxSection extends Component {
 
 	handleChange = e => {
-		this.props.updateCheckBox(this.props.title, e.target.id, e.target.checked)
+		//this.props.updateCheckBox(this.props.title, e.target.id, e.target.checked)
 	};
 
 	render() {
-
-		let questions = this.props.sectionData.map((cur, ind) => {
-			//a unique id name to link to values stored in state
-			let element = this.props.title + ind;
-			return (
-				<li
+			let question = <li
 					className="checkboxElementContainer"
-					key={this.props.title + "Element" + ind}
+					key={this.props.id}
 				>
-					<div className="checkboxLabel">{cur["label"] + ":"}</div>
+					<div className="checkboxLabel">{this.props.sectionData['label']}</div>
 					<label className="switch">
 						<input
 							type="checkbox"
-							id={element}
-							checked={this.props.values[element]}
+							id={this.props.id}
+							checked={this.props.value}
 							onChange={this.handleChange}
 						/>
 						<span className="slider" />
 					</label>
 				</li>
-			);
-		});
 
 		return (
-			<div className="wrapper" id={this.props.section + "SectionContainer"}>
-				<div className="sectionHeader">
-					{this.props.sectionTitle}
-				</div>
-				<ul className="list-unstyled" id={this.props.title + "UL"}>
-					{questions}
-				</ul>
+			<div style={{display: 'inline'}}>
+			{question}
 			</div>
 		);
 	}

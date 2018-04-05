@@ -19,7 +19,7 @@ class Survey extends Component {
 		let blankResponses = this.createDefaultAnswers(surveyData)
 
 		this.setState({
-			currentSection: instructions['sequence'][0],
+			currentSection: 'bleeding', //instructions['sequence'][0],
 			sections: instructions['sequence'],
 			responses: blankResponses
 		});
