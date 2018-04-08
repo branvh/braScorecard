@@ -4,6 +4,7 @@ import Footer from "./footer.js";
 import Page from "./page.js"
 import surveyData from "../surveyData.js";
 import instructions from "./surveyInstructions.js"
+import RegressionMatrix from './regressionMatrix.js';
 
 class Survey extends Component {
 	state = {
@@ -14,7 +15,9 @@ class Survey extends Component {
 		responses: '',
 		backwardButton: true,
 		forwardButton: true,
-		finishButton: false
+		finishButton: false,
+		betaVector: false,
+		incercepts: ['-4.645',	'-5.873',	'-7.87',	'-5.695',	'-5.055',	'-6.19',	'-3.576',	'-5.277',	'-5.466',	'-4.957',	'-4.581',	'-5.181',	'-4.949',	'-5.155',	'-3.286']
 	};
 
 	componentWillMount () {
@@ -22,10 +25,12 @@ class Survey extends Component {
 		let blankResponses = this.createDefaultAnswers(surveyData)
 
 		this.setState({
-			currentSection: 'bleeding', // instructions['sequence'][0],
+			currentSection: 'physique', // instructions['sequence'][0],
 			sections: instructions['sequence'],
 			responses: blankResponses
-		});
+		}, ()=> console.log(this.state.responses));
+
+		console.log(RegressionMatrix)
 
 	}
 
@@ -55,6 +60,153 @@ class Survey extends Component {
 		} );
 
 		return responses;
+
+	}
+
+	calculateBetaVector = () => {
+
+		//answers are captured in object with format of object - section - answers and answer id are named in convention of section0....sectionN
+		//the surey instructions object has a mapping of id and answer
+
+		//blank output vector
+		let output = [];
+
+		//############################
+		//beta 0 - BMI
+		let BMI;
+		if (this.state.metric) {
+			BMI = 10000 * parseFloat(this.state.responses['physique']['physique0']) / (parseFloat(this.state.responses['physique']['physique1']) * parseFloat(this.state.responses['physique']['physique1']) )
+		} else {  //not metric
+			BMI = 703 * parseFloat(this.state.responses['physique']['physique0']) / (parseFloat(this.state.responses['physique']['physique1']) * parseFloat(this.state.responses['physique']['physique1'] ) )
+		}
+
+		output.push(BMI);
+
+		//###########################
+		output.push(0); // age doesn't receive a beta, so pushing a 0 to keep indices correct
+
+		//###########################
+		//beta 2 - high blood pressure
+		if (this.state.responses['diagnostic']['diagnostic0'] === true || this.state.responses['bleeding']['bleeding7'] === true) {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//##########################
+		//beta 3 - diabetes
+		if (this.state.responses['diagnostic']['diagnostic2']) {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 4 - shortness of breath
+		if (this.state.responses['diagnostic']['diagnostic3']) {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 5 - chemo
+		if (this.state.responses['diagnostic']['diagnostic4']) {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+
+		//#########################
+		//beta 6 - ASA > 3  [i.e. 4 or 5]
+		if (parseFloat(this.state.responses['other']['other0']) > 3) {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 7 - smoking not within 30 days
+		if (this.state.responses['other']['other1'] === "Not within 30 days") {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 8 - current smoker
+		if (this.state.responses['other']['other1'] === "Currently smoking") {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 9 - smoking not within a year
+		if (this.state.responses['other']['other1'] === "Not within a year") {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 10 - any smoking
+		if (this.state.responses['other']['other1'] !== "Never") {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 11 - both sides
+		if (this.state.responses['other']['other2'] === "Both") {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 12 - pre operative radiation
+		if (this.state.responses['other']['other3'] === "Yes, before my mastectomy") {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 13 - pre operative radiation
+		if (this.state.responses['other']['other3'] === "Yes, after my reconstruction") {
+			output.push(1)
+		} else {
+			output.push(0)
+		}
+
+		//#########################
+		//beta 14 - yes to ANY bleeding risk question aside from chronic aspirin and the 'if yes, can you discontinue - which is bleeding5'
+		let bleeding = 0;
+		let bleedingExclusion = ['bleeding5', 'bleeding6'];
+
+		for (const q in this.state.responses['bleeding']) {
+			if (this.state.responses['bleeding'][q] && bleedingExclusion.indexOf(q) === -1) {
+				bleeding = 1;
+				break
+			}
+		}
+		output.push(bleeding)
+
+		//#########################
+		//beta 15 - yes to ANY cardiac question (which we classified as the "procedure" section)
+		let cardiac = 0;
+		for (const q in this.state.responses['procedures']) {
+			if (this.state.responses['procedures'][q]) {
+				cardiac = 1;
+				break
+			}
+		}
+		output.push(cardiac);
+
+		this.setState({betaVector: output} , () => console.log(JSON.stringify(this.state.betaVector)))
 
 	}
 
@@ -143,7 +295,8 @@ class Survey extends Component {
 
 	finish = () => {
 
-		alert(this.state.responses)
+		this.calculateBetaVector();
+		alert('Finished - read console for responses')
 
 	}
 
