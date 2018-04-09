@@ -1,45 +1,18 @@
 import React, { Component } from "react";
 
 class PhysiqueInput extends Component {
+
 	state = {
-	}
-
-	componentWillMount() {
-
-		let validityObj = {};
-
-		//this will work as the app will only let one move forward if all responses are valid and thus can only move backward to a set of previously all valid responses that would mount
-		for (const response in this.props.responses) {
-
-			validityObj[response] = true;
-
-		}
-
-		this.setState({validity: validityObj});
 
 	}
 
 	handleChange = (e) => {
 
 		//validate - triggering red borders as applicable
-		this.validate(e.target.id, e.target.value);
+		//this.validate(e.target.id, e.target.value);
 
 		//then push the responses up to state
 		this.props.updateResponses(e.target.id, e.target.value)
-	}
-
-	validate = (id, val) => {
-
-		if (val <= 0 || val > 1000 || val === false || val === '' || val === undefined) {
-
-			let newValidity = Object.assign({}, this.state.validity);
-
-			newValidity[id] = false;
-
-			this.setState({validity: newValidity});
-
-		}
-
 	}
 
 	handleUnitSelection = (e) => {
@@ -65,11 +38,7 @@ class PhysiqueInput extends Component {
 						{q["label"] + ":"}
 					</label>
 					<input
-						className={
-							this.state.validity[questionID]
-								? "physiqueInput noRedBorder"
-								: "physiqueInput redBorder"
-						}
+						className="physiqueInput noRedBorder"
 						type="number"
 						step="1"
 						min="0"

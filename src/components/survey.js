@@ -17,8 +17,9 @@ class Survey extends Component {
 		forwardButton: true,
 		finishButton: false,
 		betaVector: false,
-		incercepts: ['-4.645',	'-5.873',	'-7.87',	'-5.695',	'-5.055',	'-6.19',	'-3.576',	'-5.277',	'-5.466',	'-4.957',	'-4.581',	'-5.181',	'-4.949',	'-5.155',	'-3.286']
-	};
+		regressionOutput: false,
+		incercepts: ['-4.645',	'-5.873',	'-7.87',	'-5.695',	'-5.055',	'-6.19',	'-3.576',	'-5.277',	'-5.466',	'-4.957',	'-4.581',	'-5.181',	'-4.949',	'-5.155',	'-3.286',	'-5.155',	'-5.155',	'-5.155',	'-3.576',	'-3.576',	'-3.576',	'-5.466',	'-5.466',	'-5.466',	'-4.957',	'-4.957',	'-4.957',	'-4.581',	'-4.581',	'-4.581',	'-5.181',	'-5.181',	'-4.949',	'-4.949',	'-4.949']
+};
 
 	componentWillMount () {
 
@@ -28,9 +29,7 @@ class Survey extends Component {
 			currentSection: 'physique', // instructions['sequence'][0],
 			sections: instructions['sequence'],
 			responses: blankResponses
-		}, ()=> console.log(this.state.responses));
-
-		console.log(RegressionMatrix)
+		});
 
 	}
 
@@ -206,7 +205,42 @@ class Survey extends Component {
 		}
 		output.push(cardiac);
 
-		this.setState({betaVector: output} , () => console.log(JSON.stringify(this.state.betaVector)))
+		//the final 4 betas = 1 for the modalities
+		//let finalFour = [1,1,1,1]
+		output.push(1);
+		output.push(1);
+		output.push(1);
+		output.push(1);
+
+		this.setState({betaVector: output});
+
+		//calculate risk factors (the output table)
+		this.calculateRiskMatrix(output);
+
+	}
+
+	calculateRiskMatrix = (answers) => {
+
+		let factors = Object.keys(RegressionMatrix);
+
+		//iterate through entire regression object
+		let regressionOutput = factors.map((cur, ind) => {
+
+			//y-intercept
+			let intercept = this.state.incercepts[ind]
+
+			//multiply the corresponding answer with the regression beta
+			let answer = answers.reduce(
+				  (accumulator, currentValue, currentIndex, array) => {
+				    return accumulator + parseFloat(currentValue) * RegressionMatrix[ind][currentIndex];
+				  },
+				  intercept //add the y-intercept 
+				);
+
+			return answer
+		})
+
+		this.setState({regressionOutput: regressionOutput}, () => {console.log(this.state.regressionOutput)})
 
 	}
 
@@ -321,6 +355,7 @@ class Survey extends Component {
 							responses={this.state.responses}
 							updateResponses={this.updateResponses}
 							handleSubmit={this.handleSubmit}
+							validity={this.state.validity}
 						/>
 
 		return (

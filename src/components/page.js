@@ -43,6 +43,7 @@ class Page extends Component {
 								updateUnits={this.props.updateUnits}
 								updateResponses={this.props.updateResponses}
 								metric={this.props.metric}
+								validity={this.props.validity}
 							/>
 						</div>
 					sectionObject.push(output)
