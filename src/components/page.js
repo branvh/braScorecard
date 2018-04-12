@@ -2,12 +2,18 @@ import React, { Component } from "react";
 import PhysiqueInput from "./physiqueInput.js";
 import CheckBoxSection from "./checkboxSection.js";
 import DropDownSection from "./dropDownSection.js"
+import ButtonContainer from './buttonContainer.js'
 import surveyData from "../surveyData.js";
 import instructions from "./surveyInstructions.js"
 import uuidv4 from 'uuid/v4';
 
 class Page extends Component {
 
+	handleSubmit = (button) => {
+
+		this.props.handleSubmit(button);		
+
+	}
 
 	render () {
 
@@ -40,10 +46,12 @@ class Page extends Component {
 								section={this.props.section}
 								responses={this.props.responses[this.props.section]}
 								handleSubmit={this.props.handleSubmit}
+								updatePhysique={this.props.updatePhysique}
 								updateUnits={this.props.updateUnits}
 								updateResponses={this.props.updateResponses}
 								metric={this.props.metric}
-								validity={this.props.validity}
+								header={this.props.header[0]}
+								buttons={this.props.buttons}
 							/>
 						</div>
 					sectionObject.push(output)
@@ -71,6 +79,8 @@ class Page extends Component {
 										id={q['id']}
 										value={this.props.responses[this.props.section][q['id']]}
 										updateDDResponse={this.props.updateResponses}
+										handleSubmit={this.props.handleSubmit}
+										center={(numCol === 1) ? true : false}
 										/>
 										break;
 						case 'checkbox':
@@ -81,6 +91,8 @@ class Page extends Component {
 										id={q['id']}
 										value={this.props.responses[this.props.section][q['id']]}
 										updateCheckBox={this.props.updateResponses}
+										handleSubmit={this.props.handleSubmit}
+										center={(numCol === 1) ? true : false}
 										/>
 										break;
 					}
@@ -108,8 +120,15 @@ class Page extends Component {
 		}
 
 		return (
-			<div className="container-fluid">
+			<div className="surveyContainer">
 				{sectionObject}
+			{(this.props.section === "physique") ? false : <ButtonContainer 
+				forward={!this.props.buttons['forward']}
+				backward={!this.props.buttons['backward']}
+				finish={(this.props.buttons['finish'] && this.props.complete) ? false : true}
+				handleSubmit={this.handleSubmit}
+			/>
+			}
 			</div>
 			)
 

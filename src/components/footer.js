@@ -18,32 +18,7 @@ class Footer extends Component {
 
 	render (){
 		return (
-	<div id="footerContainer" >
-		<div className="row">
-			<div className="forwardBackwardBtnContainer">
-						{(this.props.showBackward) ? <button
-							className="btn btn-success"
-							onClick={this.handleClick}
-							id="priorButton"
-						>
-							Go Backward
-						</button> : false}
-						{(this.props.showForward) ? <button
-							className="btn btn-success"
-							onClick={this.handleClick}
-							id="nextButton"
-						>
-							Go Forward
-						</button> : false}
-						{(this.props.showFinish) ? <button
-							className="btn btn-success"
-							onClick={this.handleClick}
-							id="runAnaylsisButton"
-						>
-							Finish
-						</button> : false}
-				</div>
-			</div>
+	<div id="footerContainer">
 	<div id="footer">
 		<p>
 			Models have been abstracted from data furnished by the Participant

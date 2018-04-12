@@ -2,15 +2,16 @@ import React, { Component} from "react";
 import "./App.css";
 import LandingPageDisclaimer from "./components/landingPageDisclaimer.js";
 import Survey from "./components/survey.js";
-import Loader from "./components/Loader.js"
-/*import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";*/
+import Loader from "./components/Loader.js";
 
-/*ajv^6.0.0*/
+/*
+############# Open Items
+
+-Address inches in the Height area
+-Progress bar
+
+*/
+
 
 class App extends Component {
   state = {

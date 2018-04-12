@@ -5,6 +5,7 @@ import Page from "./page.js"
 import surveyData from "../surveyData.js";
 import instructions from "./surveyInstructions.js"
 import RegressionMatrix from './regressionMatrix.js';
+import RiskTable from './riskTable.js';
 
 class Survey extends Component {
 	state = {
@@ -12,21 +13,32 @@ class Survey extends Component {
 		currentSection: '',
 		sections: '',
 		metric: false, //indicates NOT metric
-		responses: '',
+		responses: '', //{"physique":{"physique0":"29","physique1":"222","physique2":"22"},"bleeding":{"bleeding0":false,"bleeding1":false,"bleeding2":false,"bleeding3":false,"bleeding4":false,"bleeding5":false,"bleeding6":false,"bleeding7":false},"procedures":{"procedures0":false,"procedures1":false,"procedures2":false,"procedures3":false,"procedures4":false,"procedures5":false},"diagnostic":{"diagnostic0":false,"diagnostic1":false,"diagnostic2":false,"diagnostic3":false,"diagnostic4":false},"other":{"other0":"2","other1":"Not within a year","other2":"One","other3":"No"}},
 		backwardButton: true,
 		forwardButton: true,
 		finishButton: false,
 		betaVector: false,
 		regressionOutput: false,
+		displayRiskTable: false,
 		incercepts: ['-4.645',	'-5.873',	'-7.87',	'-5.695',	'-5.055',	'-6.19',	'-3.576',	'-5.277',	'-5.466',	'-4.957',	'-4.581',	'-5.181',	'-4.949',	'-5.155',	'-3.286',	'-5.155',	'-5.155',	'-5.155',	'-3.576',	'-3.576',	'-3.576',	'-5.466',	'-5.466',	'-5.466',	'-4.957',	'-4.957',	'-4.957',	'-4.581',	'-4.581',	'-4.581',	'-5.181',	'-5.181',	'-4.949',	'-4.949',	'-4.949']
 };
+
+//dummy answers if we need for quick tests
+//{"physique":{"physique0":"29","physique1":"222","physique2":"22"},"bleeding":{"bleeding0":false,"bleeding1":false,"bleeding2":false,"bleeding3":false,"bleeding4":false,"bleeding5":false,"bleeding6":false,"bleeding7":false},"procedures":{"procedures0":false,"procedures1":false,"procedures2":false,"procedures3":false,"procedures4":false,"procedures5":false},"diagnostic":{"diagnostic0":false,"diagnostic1":false,"diagnostic2":false,"diagnostic3":false,"diagnostic4":false},"other":{"other0":"2","other1":"Not within a year","other2":"One","other3":"No"}}
+
+/*<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+  aria-valuemin="0" aria-valuemax="100" style="width:70%">
+    70%
+  </div>
+</div>*/
 
 	componentWillMount () {
 
 		let blankResponses = this.createDefaultAnswers(surveyData)
 
 		this.setState({
-			currentSection: 'physique', // instructions['sequence'][0],
+			currentSection: 'physique', //instructions['sequence'][0],
 			sections: instructions['sequence'],
 			responses: blankResponses
 		});
@@ -227,11 +239,12 @@ class Survey extends Component {
 		let regressionOutput = factors.map((cur, ind) => {
 
 			//y-intercept
-			let intercept = this.state.incercepts[ind]
+			let intercept = parseFloat(this.state.incercepts[ind])
 
 			//multiply the corresponding answer with the regression beta
 			let answer = answers.reduce(
 				  (accumulator, currentValue, currentIndex, array) => {
+			//	 	console.log(`{RegressionMatrix[ind][currentIndex]} cur: ${currentValue} acc: ${accumulator}`)
 				    return accumulator + parseFloat(currentValue) * RegressionMatrix[ind][currentIndex];
 				  },
 				  intercept //add the y-intercept 
@@ -240,7 +253,7 @@ class Survey extends Component {
 			return answer
 		})
 
-		this.setState({regressionOutput: regressionOutput}, () => {console.log(this.state.regressionOutput)})
+		this.setState({regressionOutput: regressionOutput, displayRiskTable: true}, () => {console.log(this.state.regressionOutput)})
 
 	}
 
@@ -250,12 +263,11 @@ class Survey extends Component {
 		newResponses[this.state.currentSection][id] = response;
 
 		let isComplete = false;
-		let showForward = true;
-		//if we are on the last section, determine if we must show the finish button
+		//if we are on the last section, determine if we must enable the finish button
 		if (this.state.isComplete) {
 			isComplete = true //this way we don't override an already completed form - which can't be uncompleted since final drop down selects prevent this
 		} else if (this.state.currentSection === this.state.sections[this.state.sections.length - 1]) {
-			showForward = false;
+
 			for (const q in this.state.responses[this.state.currentSection]) {
 
 				if (this.state.responses[this.state.currentSection][q] === false) {
@@ -269,59 +281,45 @@ class Survey extends Component {
 
 		}
 
-		let physiqueComplete = false;
-		//don't show forward button on physique page if all responses aren't populated
-		if (this.state.currentSection === 'physique') {
-
-			for (const q in this.state.responses[this.state.currentSection]) {
-
-				if (this.state.responses[this.state.currentSection][q] === false || this.state.responses[this.state.currentSection][q] === '') {
-					physiqueComplete = false;
-					showForward = false;
-					break;
-				} else {
-					showForward = true;
-					physiqueComplete = true;
-				}
-
-			}
-
-		} 
-
-		let showFinish = (this.state.currentSection === this.state.sections[this.state.sections.length - 1] && isComplete)
-
-		this.setState({response: newResponses, isComplete: isComplete, finishButton: showFinish, forwardButton: showForward});
+		this.setState({response: newResponses, isComplete: isComplete});
 
 	}
 
-	goForward = () => {
+	updatePhysique = (responses, metric) => {
+
+		let newResponses = Object.assign({}, this.state.responses);
+
+		newResponses['physique'] = responses;
+
+		this.setState({responses: newResponses, metric: metric})
+
+	}
+
+	changeSection = (button) => {
+
 		let sectionNum = this.state.sections.indexOf(
 			this.state["currentSection"]
 		);
 
-		let priorNum = sectionNum + 1;
-		let nextSection = this.state.sections[priorNum];
-		let showForwardButton = (this.state.currentSection === this.state.sections[this.state.sections.length - 2]) ? false : true;
-		let showBackwardButton = true;
-		let finishButton = (this.state.isComplete && this.state.currentSection === this.state.sections[this.state.sections.length - 2]) ? true : false;
+		let nextSection;
+		if (button === 'nextButton') {
+		
+			nextSection = sectionNum + 1;
+			this.setState({currentSection: this.state.sections[nextSection]});
 
-		this.setState({ currentSection: nextSection, forwardButton: showForwardButton, backwardButton: showBackwardButton, finishButton: finishButton });
-	};
+		} else if (button === 'priorButton') {
+		
+			nextSection = sectionNum - 1;
+			this.setState({currentSection: this.state.sections[nextSection]});
 
-	goBackward = () => {
-		let sectionNum = this.state.sections.indexOf(
-			this.state["currentSection"]
-		);
+		} else if (button === 'runAnaylsisButton' && this.state.isComplete) {
+			
+			this.finish();
 
-		let priorNum = sectionNum - 1;
-		let nextSection = this.state.sections[priorNum];
-		let showForwardButton = true;
-		let showBackwardButton = (this.state.currentSection === this.state.sections[1]) ? false : true;
-		let finishButton = false;
-
-		this.setState({ currentSection: nextSection, forwardButton: showForwardButton, backwardButton: showBackwardButton, finishButton: finishButton });
+		}
 
 	};
+
 
 	updateUnits = () => {
 		this.setState({ metric: !this.state.metric });
@@ -330,11 +328,12 @@ class Survey extends Component {
 	finish = () => {
 
 		this.calculateBetaVector();
-		alert('Finished - read console for responses')
-
+		
 	}
 
 	render() {
+
+		if (!this.state.displayRiskTable) {
 
 		//store all current questions in an array for passage to child section component
 		let sectionData = [];
@@ -352,26 +351,36 @@ class Survey extends Component {
 							metric={this.state.metric}
 							section={this.state.currentSection}
 							updateUnits={this.updateUnits}
+							updatePhysique={this.updatePhysique}
 							responses={this.state.responses}
 							updateResponses={this.updateResponses}
-							handleSubmit={this.handleSubmit}
+							handleSubmit={this.changeSection}
 							validity={this.state.validity}
+							buttons={instructions['sections'][this.state.currentSection]['buttons']}
+							complete={this.state.isComplete}
 						/>
 
 		return (
-			<div className="surveySectionContainer">
+			<div >
 				<SubHeader />
-				<div className="surveyContainer">{currentPage}</div>
-				<Footer 
-					showForward = {this.state.forwardButton}
-					showBackward = {this.state.backwardButton}
-					showFinish = {this.state.finishButton}
-					goForward={this.goForward}
-					goBackward={this.goBackward}
-					finish={this.finish}
-				/>
+				<div >{currentPage}</div>
+				<Footer />
 			</div>
 		);
+		
+		} else {
+
+		return (
+			<div>
+				<SubHeader />
+				<div className="surveyContainer">
+				<RiskTable data={this.state.regressionOutput}/>
+				</div>
+				<Footer />
+			</div>
+		);			
+
+		}
 	}
 }
 

@@ -116,7 +116,8 @@ padding-top:  10px;
 }
 
  .surveyContainer {
-  padding-bottom: 100px;
+  height: 60vh;
+  position: relative;
  }
 
 .sectionHeader {
@@ -125,6 +126,8 @@ padding-top:  10px;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  border-bottom: 2px solid black;
+  margin-bottom: 10px;
 }
 
 /* 
@@ -187,27 +190,26 @@ margin-bottom: 10px;
 }
 
 /* 
-############################### Bleeding section styling
+############################### Button Styling and Element Container Styling
  */
  #otherIndicatorsSectionContainer {
   text-align: center;
  }
 
-#otherIndicatorsUL {
-
-}
 
 .checkboxElementContainer {
 text-align: left;
 display: block
 }
 
-.otherIndicatorsElementLabel {
-
+.centeredInputColumn {
+  text-align: left;
+  display: block;
+  width: 100%;
 }
 
-.otherIndicatorsLabel {
-
+.checkboxLabel {
+  font-size: 16px;
 }
 
 .switch {
@@ -215,6 +217,16 @@ display: block
   display: inline-block;
   width: 60px;
   height: 34px;
+}
+
+.centeredSwitch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  left: 50%;
+  right: 50%;
+  margin-left: -30px;
 }
 
 .switch input {display:none;}
@@ -279,8 +291,9 @@ input:checked + .slider:before {
   margin-bottom: 15px;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
+  position: absolute;
   bottom: 0px;
+  left: 0px;
  }
 
 #priorButton {
@@ -294,6 +307,7 @@ input:checked + .slider:before {
 #nextButton {
   width: 100px;
   text-align: center;
+   margin-right: 25px;
   padding: 5px;
     display: inline;
 }
@@ -304,6 +318,7 @@ input:checked + .slider:before {
   text-align: center;
   padding: 5px;
     display: inline;
+    color: white;
     background-color: #41184f;
 border: #814787;
 }
@@ -319,7 +334,7 @@ border: #814787;
 #footerContainer {
   position: absolute;
   bottom: 0;
-  height: 100px;
+  height: 10vh;
   width: 100%;
 }
 
@@ -329,7 +344,8 @@ border: #814787;
 
  .diagnosticDDSelect {
 width: 200px;
-height:   25px;
+height:   35px;
+font-size: 16px;
  }
 
 
@@ -342,3 +358,86 @@ height:   25px;
   margin: 0 auto;
   text-align: center;
   }
+
+
+/* 
+################ Output Matrix Styling
+ */
+
+ #riskTable {
+  width: 100%;
+  margin: 0;
+  min-height: 50vh;
+ border-collapse: separate;
+ }
+
+ .riskTableHeader {
+  background-color: #41184f;
+  color: white;
+  text-align: center;
+  border: 1px solid white;
+  padding: 2px;
+ }
+
+  .riskTableHeader.riskTableYAxisColMainHeader {
+  text-align: left;
+  padding-left: 5px;
+ }
+
+ .headerNoBottomBorder {
+  border-bottom: none;
+ }
+
+ .headerNoTopBorder {
+  border-top: none;
+ }
+
+ .boldTableHeader {
+  font-weight: bold;
+ }
+
+ .italicTableHeader {
+  font-style: italic;
+  font-weight: normal;
+ }
+
+ .headerSuperScript {
+
+ }
+
+
+.riskTableDataCell {
+  font-size: 12px;
+  padding: 5px;
+  border: 1px solid white;
+  text-align: center;
+  width: 14.2857143%;
+  height: 50px;
+}
+
+.greyRiskCell {
+  background-color: grey;
+}
+
+.whiteRiskCell {
+  background-color: white;
+}
+
+.riskTableHeader.indentHeaderText {
+  font-size: 12px;
+  text-align: right;
+}
+
+.emptyRiskCell {
+  background-color: none;
+  border: none;
+}
+
+.finalRowOffset > .riskTableHeader, .finalRowOffset > .riskTableDataCell:not(.emptyRiskCell) {
+
+  border-top: 10px solid  #e7e7e7; 
+}
+
+.secondToLastRow > .riskTableHeader, .secondToLastRow > .riskTableDataCell:not(.emptyRiskCell) {
+  border-bottom: none;
+} 

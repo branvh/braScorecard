@@ -8,11 +8,11 @@ class CheckboxSection extends Component {
 
 	render() {
 			let question = <li
-					className="checkboxElementContainer"
+					className={(this.props.center) ? "centeredInputColumn" : "checkboxElementContainer"}
 					key={this.props.id}
 				>
 					<div className="checkboxLabel">{this.props.sectionData['label']}</div>
-					<label className="switch">
+					<label className={(this.props.centered) ? "centeredSwitch" : "switch"} >
 						<input
 							type="checkbox"
 							id={this.props.id}

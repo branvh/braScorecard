@@ -93,7 +93,7 @@ let surveyData = {
 		id: "diagnostic0",
 		ans: 2,
 		col: 1,
-		label: "High blood pressure?",
+		label: "High blood pressure",
 		section: "diagnostic",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
@@ -101,7 +101,7 @@ let surveyData = {
 		id:"diagnostic1",
 		ans: 16,
 		col: 1,
-		label: "Coronary artery disease or peripheral vascular disease?",
+		label: "Coronary artery disease or peripheral vascular disease",
 		section: "diagnostic",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
@@ -109,7 +109,7 @@ let surveyData = {
 		id:"diagnostic2",
 		ans: 3,
 		col: 1,
-		label: "Diabetes mellitus?",
+		label: "Diabetes mellitus",
 		section: "diagnostic",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
@@ -125,7 +125,7 @@ let surveyData = {
 		id:"diagnostic4",
 		ans: 5,
 		col: 1,
-		label: "Have you undergone chemotherapy?",
+		label: "Previously underwent chemotherapy",
 		section: "diagnostic",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},

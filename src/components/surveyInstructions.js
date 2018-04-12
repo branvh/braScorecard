@@ -5,27 +5,52 @@ let instructions = {
 		physique: {
 			col: 1,
 			headers: ["Please Tell Us About Yourself:"],
-			title: "physique"
+			title: "physique",
+			buttons: {
+				forward: true,
+				backward: false,
+				finish: false
+			}
 		},
 		bleeding: {
 			col: 2,
-			headers: ["Have You Been Diagnosed With:", "Are You Currently Taking:"],
-			title: "bleeding"
+			headers: ["Have You Been Diagnosed With?", "Are You Currently Taking?"],
+			title: "bleeding",
+			buttons: {
+				forward: true,
+				backward: true,
+				finish: false
+			}
 		},
 		procedures: {
 			col: 1,
-			headers: ["Have You Had Any Of These Procedures:"],
-			title: "procedures"
+			headers: ["Have You Had Any Of These Procedures?"],
+			title: "procedures",
+			buttons: {
+				forward: true,
+				backward: true,
+				finish: false
+			}
 		},
 		diagnostic: {
 			col: 1,
-			headers: ["Have You Been Diagnosed With:"],
-			title: "diagnostic"
+			headers: ["Do Any of These Apply?"],
+			title: "diagnostic",
+			buttons: {
+				forward: true,
+				backward: true,
+				finish: false
+			}
 		},
 		other: {
 			col: 1,
 			headers: ["Please Answer The Following:"],
-			title: "other"
+			title: "other",
+			buttons: {
+				forward: false,
+				backward: true,
+				finish: true
+			}
 		}
 	},
 	sequence: ["physique", "bleeding", "procedures", "diagnostic", "other"]

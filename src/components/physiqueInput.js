@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ButtonContainer from './buttonContainer.js'
 
 class PhysiqueInput extends Component {
 
@@ -6,80 +7,133 @@ class PhysiqueInput extends Component {
 
 	}
 
+	componentWillMount () {
+
+		let defaultResponses = {...this.props.responses}
+
+		let buttons = {...this.props.buttons}
+
+		let validity = {};
+
+		//default is that everything is valid, even if blank - can only navigate back if one has filled in page so impossible not to have valid for all upon page load
+		for (const q in this.props.responses) {
+			validity[q] = true;
+		}
+
+		//determine if complete
+		let isComplete = true;
+		for (const q in this.props.values) {
+			
+			if (this.props.values[q] === false || this.props.values[q] === '' || this.props.values[q] === undefined) {
+				isComplete = false;
+				break;
+			}
+
+		}
+
+		this.setState({values: defaultResponses, metric: this.props.metric, validity: validity, isComplete: isComplete, buttons: buttons});
+
+	}
+
 	handleChange = (e) => {
+		
+		let newValues = Object.assign({}, this.state.values);
+		newValues[e.target.id] = e.target.value;
 
-		//validate - triggering red borders as applicable
-		//this.validate(e.target.id, e.target.value);
+		let newValidity = Object.assign({}, this.state.validity);
 
-		//then push the responses up to state
-		this.props.updateResponses(e.target.id, e.target.value)
+		newValidity[e.target.id] = (e.target.value <= 0 || e.target.value > 700) ? false : true;
+
+		//determine if complete
+		let isComplete = true;
+		for (const q in newValues) {
+			
+			if (newValues[q] === false || newValues[q] === '' || newValues[q] === undefined) {
+				isComplete = false;
+				break;
+			}
+
+		}
+
+		this.setState({values: newValues, validity: newValidity, isComplete: isComplete})
+
 	}
 
 	handleUnitSelection = (e) => {
 
-		this.props.updateUnits();
+		this.setState({metric: !this.state.metric});
+
+	}
+
+	handleSubmit = (button) => {
+
+		this.props.handleSubmit(button);
+		this.props.updatePhysique(this.state.values, this.state.metric);
 
 	}
 
 	render() {
 
 		//questions, section, responses, metric, 
-		//display the questions
-		let questionArray = this.props.questions.map((q, ind) => {
 
-			let questionID = q['section'] + ind;
+		let questions = this.props.questions.map((q, ind) => {
 
-			if (q['elements'][0]["type"] === "input") {
+			let id = this.props.section + ind;
 
-				return (
+			return (
 
 				<div className="physiqueElementContainer" key={this.props.section + "Element" + ind}>
-					<label htmlFor={questionID} className={this.props.section + "Label"}>
+					<label className={this.props.section + "Label"}>
 						{q["label"] + ":"}
 					</label>
 					<input
-						className="physiqueInput noRedBorder"
+						className={(this.state.validity[id] === true) ? "physiqueInput noRedBorder" : "physiqueInput redBorder"}
 						type="number"
 						step="1"
 						min="0"
-						id={questionID}
-						value={this.props.responses[questionID]}
+						id={id}
+						value={this.state.values[id]}
 						onChange={this.handleChange}
 					/>
 				</div>
 
-					)
 
-			} else return false
+				)
 
 
 		})
 
-		//stopped - push the metric switch
-		let metricSection = ((checked, changeFN) => {
 
-			return(	<div className="physiqueElementContainer" key={"metricKey"}>
+
+		return (
+
+			<div>
+			<div className="sectionHeader">
+			{this.props.header}
+			</div>
+				{questions}
+			<div className="physiqueElementContainer" key={"metricKey"}>
 					<label htmlFor={"units"} id="unitsLabel">
 						{"Metric (Meter / KG)?"}
 					</label>
 					<label className="switch" id="unitsCheckBox">
 						<input
 							type="checkbox"
-							checked={checked}
-							onChange={changeFN}
+							checked={this.state.metric}
+							onChange={this.handleUnitSelection}
 						/>
 						<span className="slider" />
 					</label>
 					</div>
-				)
-
-			})(this.props.metric,this.handleUnitSelection)
-
-		questionArray.push(metricSection)
-
-		return (
-
-			questionArray
+ 
+			<ButtonContainer 
+			forward={!this.state.isComplete}
+			backward={!this.props.buttons['backward']}
+			finish={!this.props.buttons['finish']}
+			handleSubmit={this.handleSubmit}
+			/>
+			</div>
+				
 
 			)
 
@@ -89,3 +143,10 @@ class PhysiqueInput extends Component {
 
 export default PhysiqueInput;
 
+
+/*
+
+STOPPED - NEED TO REFACTOR ALL BUTTONS TO DISPLAY IN THE PAGE COMPONENTS
+ADD PROP FUNCTION ON SUBMIT - IF THE PAGE COMPLETE - TO DISPLAY CERTAIN BUTTONS AND THEN MOVE FORWARD/BACKWARD
+
+*/

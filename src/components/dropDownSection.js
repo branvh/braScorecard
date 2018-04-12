@@ -39,7 +39,7 @@ class DropDownSection extends Component {
 
 			let question = (
 				<li
-					className="checkboxElementContainer"
+					className={(this.props.center) ? "centeredInputColumn" : "checkboxElementContainer"}
 					key={this.props.id}
 				>
 					<div className="checkboxLabel">{this.props.sectionData['label']}</div>
