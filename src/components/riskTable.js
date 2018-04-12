@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import CheckBoxSection from './checkboxSection.js';
 
 class RiskTable extends Component {
 
@@ -111,7 +110,7 @@ class RiskTable extends Component {
 			</table>
 			{(this.props.showToggle) ?
 							<div style={{display: 'inline', textAlign: 'center', paddingTop: '10px'}}>
-					<div className="checkboxLabel">Press To Manually Change Radiation Assumption: </div>
+					<div className="checkboxLabel">If you weren't sure about radiation exposure, see how results change by pressing this: </div>
 					<label className="centeredSwitch">
 						<input
 							type="checkbox"

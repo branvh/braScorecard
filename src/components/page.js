@@ -3,7 +3,6 @@ import PhysiqueInput from "./physiqueInput.js";
 import CheckBoxSection from "./checkboxSection.js";
 import DropDownSection from "./dropDownSection.js";
 import ButtonContainer from './buttonContainer.js';
-import ProgressBar from './progressBar.js';
 import uuidv4 from 'uuid/v4';
 
 class Page extends Component {

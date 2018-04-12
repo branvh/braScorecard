@@ -24,7 +24,7 @@ class PhysiqueInput extends Component {
 		let isComplete = true;
 		for (const q in this.props.responses) {
 		
-			if (this.props.responses[q] == false) {
+			if (this.props.responses[q] === false) {
 				isComplete = false;
 				break;
 			}

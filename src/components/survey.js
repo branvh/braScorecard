@@ -27,13 +27,6 @@ class Survey extends Component {
 //dummy answers if we need for quick tests
 //{"physique":{"physique0":"29","physique1":"222","physique2":"22"},"bleeding":{"bleeding0":false,"bleeding1":false,"bleeding2":false,"bleeding3":false,"bleeding4":false,"bleeding5":false,"bleeding6":false,"bleeding7":false},"procedures":{"procedures0":false,"procedures1":false,"procedures2":false,"procedures3":false,"procedures4":false,"procedures5":false},"diagnostic":{"diagnostic0":false,"diagnostic1":false,"diagnostic2":false,"diagnostic3":false,"diagnostic4":false},"other":{"other0":"2","other1":"Not within a year","other2":"One","other3":"No"}}
 
-/*<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="70"
-  aria-valuemin="0" aria-valuemax="100" style="width:70%">
-    70%
-  </div>
-</div>*/
-
 	componentWillMount () {
 
 		let blankResponses = this.createDefaultAnswers(surveyData)
@@ -179,7 +172,7 @@ class Survey extends Component {
 		}
 
 		//#########################
-		//beta 12 - pre operative radiation
+		//beta 12 - pre-operative radiation
 		if (this.state.responses['other']['other3'] === "Yes, before my mastectomy") {
 			output.push(1)
 		} else {
@@ -187,7 +180,7 @@ class Survey extends Component {
 		}
 
 		//#########################
-		//beta 13 - pre operative radiation
+		//beta 13 - post-operative radiation
 		if (this.state.responses['other']['other3'] === "Yes, after my reconstruction") {
 			output.push(1)
 		} else {
@@ -245,7 +238,7 @@ class Survey extends Component {
 			//multiply the corresponding answer with the regression beta
 			let answer = answers.reduce(
 				  (accumulator, currentValue, currentIndex, array) => {
-			//	 	console.log(`{RegressionMatrix[ind][currentIndex]} cur: ${currentValue} acc: ${accumulator}`)
+
 				    return accumulator + parseFloat(currentValue) * RegressionMatrix[ind][currentIndex];
 				  },
 				  intercept //add the y-intercept 
