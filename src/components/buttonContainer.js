@@ -6,8 +6,6 @@ class ButtonContainer extends Component {
 
 		e.preventDefault();
 
-		console.log(e.target.id)
-
 		this.props.handleSubmit(e.target.id);
 
 	}

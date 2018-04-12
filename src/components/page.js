@@ -3,8 +3,6 @@ import PhysiqueInput from "./physiqueInput.js";
 import CheckBoxSection from "./checkboxSection.js";
 import DropDownSection from "./dropDownSection.js"
 import ButtonContainer from './buttonContainer.js'
-import surveyData from "../surveyData.js";
-import instructions from "./surveyInstructions.js"
 import uuidv4 from 'uuid/v4';
 
 class Page extends Component {
@@ -95,6 +93,8 @@ class Page extends Component {
 										center={(numCol === 1) ? true : false}
 										/>
 										break;
+						default: 
+							break;
 					}
 
 					return element
