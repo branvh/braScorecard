@@ -1,11 +1,19 @@
 import React, {Component} from 'react';
+import CheckBoxSection from './checkboxSection.js';
 
 class RiskTable extends Component {
+
+	handleRadiation = (e) => {
+
+		this.props.updateRadiation();
+
+	}
 
 	render () {
 
 		return (
 
+			<div id="riskTableSection">
 			<table id="riskTable">
 			<thead>
 				<tr>
@@ -101,6 +109,21 @@ class RiskTable extends Component {
 			</tr>
 			</tbody>
 			</table>
+			{(this.props.showToggle) ?
+							<div style={{display: 'inline', textAlign: 'center', paddingTop: '10px'}}>
+					<div className="checkboxLabel">Press To Manually Change Radiation Assumption: </div>
+					<label className="centeredSwitch">
+						<input
+							type="checkbox"
+							id="checkboxToggle"
+							checked={this.props.radiationToggle}
+							onChange={this.handleRadiation}
+						/>
+						<span className="slider" />
+					</label>
+			</div>
+				: false}
+			</div>
 
 			)
 

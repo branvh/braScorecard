@@ -116,7 +116,7 @@ padding-top:  10px;
 }
 
  .surveyContainer {
-  height: 60vh;
+  height: 65vh;
   position: relative;
  }
 
@@ -328,13 +328,13 @@ border: #814787;
   padding: 10px;
   font-size: 8px;
   position: relative;
-  bottom: 0;
+  bottom: -30px;
 }
 
 #footerContainer {
   position: absolute;
-  bottom: 0;
-  height: 10vh;
+  
+  
   width: 100%;
 }
 
@@ -412,7 +412,7 @@ font-size: 16px;
   border: 1px solid white;
   text-align: center;
   width: 14.2857143%;
-  height: 50px;
+  height: 40px;
 }
 
 .greyRiskCell {

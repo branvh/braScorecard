@@ -20,6 +20,7 @@ class Survey extends Component {
 		betaVector: false,
 		regressionOutput: false,
 		displayRiskTable: false,
+		radiationToggle: false,
 		incercepts: ['-4.645',	'-5.873',	'-7.87',	'-5.695',	'-5.055',	'-6.19',	'-3.576',	'-5.277',	'-5.466',	'-4.957',	'-4.581',	'-5.181',	'-4.949',	'-5.155',	'-3.286',	'-5.155',	'-5.155',	'-5.155',	'-3.576',	'-3.576',	'-3.576',	'-5.466',	'-5.466',	'-5.466',	'-4.957',	'-4.957',	'-4.957',	'-4.581',	'-4.581',	'-4.581',	'-5.181',	'-5.181',	'-4.949',	'-4.949',	'-4.949']
 };
 
@@ -38,7 +39,7 @@ class Survey extends Component {
 		let blankResponses = this.createDefaultAnswers(surveyData)
 
 		this.setState({
-			currentSection: instructions['sequence'][0],
+			currentSection: 'physique', //instructions['sequence'][0],
 			sections: instructions['sequence'],
 			responses: blankResponses
 		});
@@ -325,6 +326,20 @@ class Survey extends Component {
 		this.setState({ metric: !this.state.metric });
 	};
 
+	updateRadiation = () => {
+console.log(this.state.betaVector)
+		//change the Beta vector question 12 response (pre-radiation) which is located in array index 11 (since array counting starts @ 0 in JavaScript)
+		let newBeta = this.state.betaVector.slice();
+
+		newBeta[11] = (!this.state.radiationToggle) ? 1 : 0;  //since state hasn't changed yet, we negate the toggle in this calculation
+
+		this.setState({radiationToggle: !this.state.radiationToggle, betaVector: newBeta});
+
+		//calculate risk factors (the output table)
+		this.calculateRiskMatrix(newBeta);
+
+	}
+
 	finish = () => {
 
 		this.calculateBetaVector();
@@ -376,7 +391,11 @@ class Survey extends Component {
 			<div>
 				<SubHeader />
 				<div className="surveyContainer">
-				<RiskTable data={this.state.regressionOutput}/>
+				<RiskTable 
+					data={this.state.regressionOutput} 
+					updateRadiation={this.updateRadiation} 
+					showToggle={true} 
+					radiationToggle={this.state.radiationToggle}/>
 				</div>
 				<Footer />
 			</div>

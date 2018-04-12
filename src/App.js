@@ -15,7 +15,7 @@ import Loader from "./components/Loader.js";
 
 class App extends Component {
   state = {
-    termsAccepted: false,
+    termsAccepted: true,
     loading: false
   };
 
