@@ -441,3 +441,14 @@ font-size: 16px;
 .secondToLastRow > .riskTableHeader, .secondToLastRow > .riskTableDataCell:not(.emptyRiskCell) {
   border-bottom: none;
 } 
+
+
+/* 
+############################ Progress Text Area Styling
+ */
+
+ #progressContainer {
+ padding-top: 10px;
+ font-weight: bold;
+ color: #814787;
+ }

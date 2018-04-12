@@ -358,6 +358,8 @@ class Survey extends Component {
 							validity={this.state.validity}
 							buttons={instructions['sections'][this.state.currentSection]['buttons']}
 							complete={this.state.isComplete}
+							page={this.state.sections.indexOf(this.state.currentSection) + 1}
+							totalPages={this.state.sections.length}
 						/>
 
 		return (

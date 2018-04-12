@@ -1,4 +1,5 @@
 import React , {Component} from 'react';
+import ProgressBar from './progressBar.js';
 
 class ButtonContainer extends Component {
 
@@ -40,6 +41,7 @@ class ButtonContainer extends Component {
 						>
 							Finish
 						</button>
+				<ProgressBar page={this.props.page} totalPages={this.props.totalPages} />
 				</div>
 
 			)

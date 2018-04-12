@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ButtonContainer from './buttonContainer.js'
+import ButtonContainer from './buttonContainer.js';
 
 class PhysiqueInput extends Component {
 
@@ -22,9 +22,9 @@ class PhysiqueInput extends Component {
 
 		//determine if complete
 		let isComplete = true;
-		for (const q in this.props.values) {
-			
-			if (this.props.values[q] === false || this.props.values[q] === '' || this.props.values[q] === undefined) {
+		for (const q in this.props.responses) {
+		
+			if (this.props.responses[q] == false) {
 				isComplete = false;
 				break;
 			}
@@ -47,14 +47,14 @@ class PhysiqueInput extends Component {
 		//determine if complete
 		let isComplete = true;
 		for (const q in newValues) {
-			
+	
 			if (newValues[q] === false || newValues[q] === '' || newValues[q] === undefined) {
 				isComplete = false;
 				break;
 			}
 
 		}
-
+console.log(isComplete)
 		this.setState({values: newValues, validity: newValidity, isComplete: isComplete})
 
 	}
@@ -131,6 +131,8 @@ class PhysiqueInput extends Component {
 			backward={!this.props.buttons['backward']}
 			finish={!this.props.buttons['finish']}
 			handleSubmit={this.handleSubmit}
+			page={this.props.page}
+			totalPages={this.props.totalPages}
 			/>
 			</div>
 				

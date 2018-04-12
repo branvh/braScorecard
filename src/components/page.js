@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PhysiqueInput from "./physiqueInput.js";
 import CheckBoxSection from "./checkboxSection.js";
-import DropDownSection from "./dropDownSection.js"
-import ButtonContainer from './buttonContainer.js'
+import DropDownSection from "./dropDownSection.js";
+import ButtonContainer from './buttonContainer.js';
+import ProgressBar from './progressBar.js';
 import uuidv4 from 'uuid/v4';
 
 class Page extends Component {
@@ -50,6 +51,8 @@ class Page extends Component {
 								metric={this.props.metric}
 								header={this.props.header[0]}
 								buttons={this.props.buttons}
+								page={this.props.page} 
+								totalPages={this.props.totalPages}
 							/>
 						</div>
 					sectionObject.push(output)
@@ -127,9 +130,11 @@ class Page extends Component {
 				backward={!this.props.buttons['backward']}
 				finish={(this.props.buttons['finish'] && this.props.complete) ? false : true}
 				handleSubmit={this.handleSubmit}
-			/>
-			}
+				page={this.props.page} 
+				totalPages={this.props.totalPages}
+			/>}
 			</div>
+
 			)
 
 	}
