@@ -73,18 +73,15 @@ let surveyData = {
 		id:"other3",
 		ans: 13,
 		col: 1,
-		label: "Have you had, or do you predict having, radiation therapy?",
+		label: "Did you have radiation therapy before mastectomy?",
 		section: "other",
 		elements: [
 			{
 				type: "dropDown",
 				data: "select",
 				choices: [
-					"No",
-					"Uncertain",
-					"Yes, before my mastectomy",
-					"Yes, during the tissue expander phase",
-					"Yes, after my reconstruction"
+					"Yes",
+					"No"
 				]
 			}
 		]
@@ -241,7 +238,25 @@ let surveyData = {
 		label: "Blood pressure medication",
 		section: "bleeding",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
-	}
+	},
+	26: {
+		id:"other4",
+		ans: 13,
+		col: 1,
+		label: "Did you have radiation therapy after mastectomy?",
+		section: "other",
+		elements: [
+			{
+				type: "dropDown",
+				data: "select",
+				choices: [
+					"Yes",
+					"No",
+					"Uncertain"
+				]
+			}
+		]
+	},
 };
 
 export default surveyData;

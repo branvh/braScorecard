@@ -32,7 +32,7 @@ class Survey extends Component {
 		let blankResponses = this.createDefaultAnswers(surveyData)
 
 		this.setState({
-			currentSection: 'physique', //instructions['sequence'][0],
+			currentSection: instructions['sequence'][0],
 			sections: instructions['sequence'],
 			responses: blankResponses
 		});
@@ -173,7 +173,7 @@ class Survey extends Component {
 
 		//#########################
 		//beta 12 - pre-operative radiation
-		if (this.state.responses['other']['other3'] === "Yes, before my mastectomy") {
+		if (this.state.responses['other']['other3'] === "Yes") {
 			output.push(1)
 		} else {
 			output.push(0)
@@ -181,7 +181,7 @@ class Survey extends Component {
 
 		//#########################
 		//beta 13 - post-operative radiation
-		if (this.state.responses['other']['other3'] === "Yes, after my reconstruction") {
+		if (this.state.responses['other']['other4'] === "Yes") {
 			output.push(1)
 		} else {
 			output.push(0)
@@ -387,7 +387,7 @@ console.log(this.state.betaVector)
 				<RiskTable 
 					data={this.state.regressionOutput} 
 					updateRadiation={this.updateRadiation} 
-					showToggle={true} 
+					showToggle={(this.state.responses['other']['other4'] === "Uncertain") ? true : false} 
 					radiationToggle={this.state.radiationToggle}/>
 				</div>
 				<Footer />
