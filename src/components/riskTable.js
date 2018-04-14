@@ -10,6 +10,13 @@ class RiskTable extends Component {
 
 	render () {
 
+/*One last trick: for the "1 Year" column under "Tissue Expander," 
+any result that is smaller than the number immediately to its left should be overwritten to say ">X%" where X% is the value 
+in the column immediately to its left. 
+In other words and for example, you cannot have a risk of surgical site infection that is 9% within 30 days but only 3% within 1 year, as 1 year encompasses 30 days.*/
+
+//determine if we need to override the tissue expander 1 year cell
+
 		return (
 
 			<div id="riskTableSection">
@@ -39,7 +46,12 @@ class RiskTable extends Component {
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader riskTableYAxisColMainHeader">Overall Surgical Complications<sup className="headerSuperScript">1</sup></td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[6]))))*100)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[0]))))*100)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{
+					( Math.round((1/(1+Math.exp(-parseFloat(this.props.data[0]))))*100) <= Math.round((1/(1+Math.exp(-parseFloat(this.props.data[6]))))*100) ) ?
+
+						">" +  Math.round((1/(1+Math.exp(-parseFloat(this.props.data[0]))))*100) :  Math.round((1/(1+Math.exp(-parseFloat(this.props.data[0]))))*100)						
+					}
+					%</td>
 				<td className="riskTableDataCell whiteRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[18]))))*100)}%</td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[19]))))*100)}%</td>
 				<td className="riskTableDataCell whiteRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[20]))))*100)}%</td>
@@ -48,7 +60,16 @@ class RiskTable extends Component {
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Surgical Site Infection<sup className="headerSuperScript">2</sup></td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[8]))))*100)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[1]))))*100)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{
+
+					( Math.round((1/(1+Math.exp(-parseFloat(this.props.data[1]))))*100) <= Math.round((1/(1+Math.exp(-parseFloat(this.props.data[8]))))*100) ) ?
+
+					">" + Math.round((1/(1+Math.exp(-parseFloat(this.props.data[1]))))*100)  :  Math.round((1/(1+Math.exp(-parseFloat(this.props.data[1]))))*100)
+
+				}
+
+					%</td>
+				
 				<td className="riskTableDataCell whiteRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[21]))))*100)}%</td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[22]))))*100)}%</td>
 				<td className="riskTableDataCell whiteRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[23]))))*100)}%</td>
@@ -57,7 +78,15 @@ class RiskTable extends Component {
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Seroma<sup className="headerSuperScript">1</sup></td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[9]))))*100)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[2]))))*100)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{
+
+					( Math.round((1/(1+Math.exp(-parseFloat(this.props.data[2]))))*100) <=  Math.round((1/(1+Math.exp(-parseFloat(this.props.data[9]))))*100) ) ?
+
+					">" + Math.round((1/(1+Math.exp(-parseFloat(this.props.data[2]))))*100) : Math.round((1/(1+Math.exp(-parseFloat(this.props.data[2]))))*100)
+
+				}
+
+				%</td>
 				<td className="riskTableDataCell whiteRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[24]))))*100)}%</td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[25]))))*100)}%</td>
 				<td className="riskTableDataCell whiteRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[26]))))*100)}%</td>
@@ -66,7 +95,14 @@ class RiskTable extends Component {
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Dehiscence<sup className="headerSuperScript">1</sup></td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[10]))))*100)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[3]))))*100)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{
+
+					( Math.round((1/(1+Math.exp(-parseFloat(this.props.data[3]))))*100) <= Math.round((1/(1+Math.exp(-parseFloat(this.props.data[10]))))*100) ) ? 
+
+					">" + Math.round((1/(1+Math.exp(-parseFloat(this.props.data[3]))))*100)  : Math.round((1/(1+Math.exp(-parseFloat(this.props.data[3]))))*100) 
+				}
+
+				%</td>
 				<td className="riskTableDataCell whiteRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[27]))))*100)}%</td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[28]))))*100)}%</td>
 				<td className="riskTableDataCell whiteRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[29]))))*100)}%</td>
@@ -83,7 +119,14 @@ class RiskTable extends Component {
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Explantation</td>
 				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[5]))))*100)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{Math.round((1/(1+Math.exp(-parseFloat(this.props.data[4]))))*100)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{
+
+					( Math.round((1/(1+Math.exp(-parseFloat(this.props.data[4]))))*100) <= Math.round((1/(1+Math.exp(-parseFloat(this.props.data[5]))))*100) ) ? 
+
+					">" + Math.round((1/(1+Math.exp(-parseFloat(this.props.data[4]))))*100) : Math.round((1/(1+Math.exp(-parseFloat(this.props.data[4]))))*100)
+
+				}
+				%</td>
 				<td className="riskTableDataCell whiteRiskCell">N/A</td>
 				<td className="riskTableDataCell greyRiskCell">N/A</td>
 				<td className="riskTableDataCell whiteRiskCell">N/A</td>

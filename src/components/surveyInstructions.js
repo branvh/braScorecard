@@ -4,7 +4,7 @@ let instructions = {
 	sections: {
 		physique: {
 			col: 1,
-			headers: ["Please Tell Us About Yourself:"],
+			headers: ["Please tell us about yourself:"],
 			title: "physique",
 			buttons: {
 				forward: true,
@@ -14,7 +14,7 @@ let instructions = {
 		},
 		bleeding: {
 			col: 2,
-			headers: ["Have You Been Diagnosed With?", "Are You Currently Taking?"],
+			headers: ["Have you been diagnosed with any of the following?", "Are you currently taking any of the following?"],
 			title: "bleeding",
 			buttons: {
 				forward: true,
@@ -24,7 +24,7 @@ let instructions = {
 		},
 		procedures: {
 			col: 1,
-			headers: ["Have You Had Any Of These Procedures?"],
+			headers: ["Have you had any of these procedures?"],
 			title: "procedures",
 			buttons: {
 				forward: true,
@@ -34,7 +34,7 @@ let instructions = {
 		},
 		diagnostic: {
 			col: 1,
-			headers: ["Do Any of These Apply?"],
+			headers: ["Do any of these apply to you?"],
 			title: "diagnostic",
 			buttons: {
 				forward: true,
@@ -44,7 +44,7 @@ let instructions = {
 		},
 		other: {
 			col: 1,
-			headers: ["Please Answer The Following:"],
+			headers: ["Please give us a few final pieces of information"],
 			title: "other",
 			buttons: {
 				forward: false,

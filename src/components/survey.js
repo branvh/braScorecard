@@ -19,7 +19,7 @@ class Survey extends Component {
 		finishButton: false,
 		betaVector: false,
 		regressionOutput: false,
-		displayRiskTable: false,
+		displayRiskTable: true,
 		radiationToggle: false,
 		incercepts: ['-4.645',	'-5.873',	'-7.87',	'-5.695',	'-5.055',	'-6.19',	'-3.576',	'-5.277',	'-5.466',	'-4.957',	'-4.581',	'-5.181',	'-4.949',	'-5.155',	'-3.286',	'-5.155',	'-5.155',	'-5.155',	'-3.576',	'-3.576',	'-3.576',	'-5.466',	'-5.466',	'-5.466',	'-4.957',	'-4.957',	'-4.957',	'-4.581',	'-4.581',	'-4.581',	'-5.181',	'-5.181',	'-4.949',	'-4.949',	'-4.949']
 };
@@ -194,8 +194,13 @@ class Survey extends Component {
 
 		for (const q in this.state.responses['bleeding']) {
 			if (this.state.responses['bleeding'][q] && bleedingExclusion.indexOf(q) === -1) {
-				bleeding = 1;
-				break
+
+				if (q === 'bleeding4' && this.state.responses['bleeding5'] ) {
+					//do nothing
+				} else {
+					bleeding = 1;
+					break
+				}
 			}
 		}
 		output.push(bleeding)

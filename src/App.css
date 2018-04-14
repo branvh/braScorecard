@@ -144,7 +144,7 @@ margin-bottom: 10px;
 
  .physiqueLabel {
   
-  width: 75px;
+  width: 150px;
   text-align: left;
  }
 
@@ -178,15 +178,15 @@ margin-bottom: 10px;
 
  #unitsLabel {
   text-align: left;
-  width: 150px;
+  width: 200px;
   left: 50%;
   right: 50%;
-  margin-left: -55px;
+  margin-left: -95px;
  }
 
 #unitsCheckBox {
   margin-bottom: -5px;
-  right:  -55px;
+  right:  -90px;
 }
 
 /* 
@@ -421,6 +421,8 @@ font-size: 16px;
 
 .whiteRiskCell {
   background-color: white;
+  border-bottom:  1px;
+    border-top:  1px solid grey !important;
 }
 
 .riskTableHeader.indentHeaderText {
@@ -435,7 +437,7 @@ font-size: 16px;
 
 .finalRowOffset > .riskTableHeader, .finalRowOffset > .riskTableDataCell:not(.emptyRiskCell) {
 
-  border-top: 10px solid  #e7e7e7; 
+  border-top: 10px solid  #e7e7e7 !important; 
 }
 
 .secondToLastRow > .riskTableHeader, .secondToLastRow > .riskTableDataCell:not(.emptyRiskCell) {

@@ -9,7 +9,7 @@ let surveyData = {
 		id: "physique0",
 		ans: 0,
 		col: 1,
-		label: "Height",
+		label: "Height (inches/cm)",
 		section: "physique",
 		elements: [{ type: "input", data: "numeric", choices: false }]
 	},
@@ -17,7 +17,7 @@ let surveyData = {
 		id: "physique1",
 		ans: 0,
 		col: 1,
-		label: "Weight",
+		label: "Weight (lbs/kg)",
 		section: "physique",
 		elements: [{ type: "input", data: "numeric", choices: false }]
 	},
@@ -25,7 +25,7 @@ let surveyData = {
 		id: "physique2",
 		ans: 1,
 		col: 1,
-		label: "Age",
+		label: "Age (years)",
 		section: "physique",
 		elements: [{ type: "input", data: "numeric", choices: false }]
 	},
@@ -73,7 +73,7 @@ let surveyData = {
 		id:"other3",
 		ans: 13,
 		col: 1,
-		label: "Did you have radiation therapy before mastectomy?",
+		label: "Did you or will you have radiation prior to your mastectomy/reconstruction?",
 		section: "other",
 		elements: [
 			{
@@ -163,7 +163,7 @@ let surveyData = {
 		ans: 15,
 		col: 2,
 		label:
-			"Coumadin, NSAIDs, or Other Anti-Coagulant NOT Discontinued Prior to Surgery",
+			"Coumadin, NSAIDs, or Other Anti-Coagulant",
 		section: "bleeding",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
@@ -234,7 +234,7 @@ let surveyData = {
 	25: {
 		id:"bleeding7",
 		ans: 2,
-		col: 1,
+		col: 2,
 		label: "Blood pressure medication",
 		section: "bleeding",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
@@ -243,7 +243,7 @@ let surveyData = {
 		id:"other4",
 		ans: 13,
 		col: 1,
-		label: "Did you have radiation therapy after mastectomy?",
+		label: "Will you have radiation after your mastectomy/reconstruction?",
 		section: "other",
 		elements: [
 			{

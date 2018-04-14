@@ -114,7 +114,7 @@ console.log(isComplete)
 				{questions}
 			<div className="physiqueElementContainer" key={"metricKey"}>
 					<label htmlFor={"units"} id="unitsLabel">
-						{"Metric (Meter / KG)?"}
+						{"Units in Metric (cm/kg)?"}
 					</label>
 					<label className="switch" id="unitsCheckBox">
 						<input

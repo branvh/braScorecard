@@ -4,8 +4,8 @@ const SubHeader = () => (
 	<div id="subHeader">
 		<p id="subHeaderText">
 			To calculate the estimated risk for postoperative complications in a
-			patient who underwent mastectomy with immediate tissue expander or
-			autologous reconstruction, complete the following worksheet.
+			patient who is undergoing mastectomy with immediate tissue expander or
+			autologous reconstruction, enter the following data.
 		</p>
 	</div>
 );
