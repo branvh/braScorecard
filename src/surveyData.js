@@ -218,7 +218,7 @@ let surveyData = {
 	23: {
 		id:"procedures4",
 		ans: 16,
-		col: 1,
+		col: 2,
 		label: "Implantation of Pacemaker/Defibrillator",
 		section: "procedures",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
@@ -226,7 +226,7 @@ let surveyData = {
 	24: {
 		id:"procedures5",
 		ans: 16,
-		col: 1,
+		col: 2,
 		label: "Other major cardiac surgery",
 		section: "procedures",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]

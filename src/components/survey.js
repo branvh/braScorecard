@@ -19,7 +19,7 @@ class Survey extends Component {
 		finishButton: false,
 		betaVector: false,
 		regressionOutput: false,
-		displayRiskTable: true,
+		displayRiskTable: false,
 		radiationToggle: false,
 		incercepts: ['-4.645',	'-5.873',	'-7.87',	'-5.695',	'-5.055',	'-6.19',	'-3.576',	'-5.277',	'-5.466',	'-4.957',	'-4.581',	'-5.181',	'-4.949',	'-5.155',	'-3.286',	'-5.155',	'-5.155',	'-5.155',	'-3.576',	'-3.576',	'-3.576',	'-5.466',	'-5.466',	'-5.466',	'-4.957',	'-4.957',	'-4.957',	'-4.581',	'-4.581',	'-4.581',	'-5.181',	'-5.181',	'-4.949',	'-4.949',	'-4.949']
 };

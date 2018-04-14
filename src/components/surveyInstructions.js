@@ -23,8 +23,8 @@ let instructions = {
 			}
 		},
 		procedures: {
-			col: 1,
-			headers: ["Have you had any of these procedures?"],
+			col: 2,
+			headers: ["Have you had any of these procedures?","Procedures Continued:"],
 			title: "procedures",
 			buttons: {
 				forward: true,
