@@ -54,7 +54,7 @@ class PhysiqueInput extends Component {
 			}
 
 		}
-console.log(isComplete)
+
 		this.setState({values: newValues, validity: newValidity, isComplete: isComplete})
 
 	}

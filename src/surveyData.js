@@ -154,7 +154,7 @@ let surveyData = {
 		id:"bleeding3",
 		ans: 15,
 		col: 1,
-		label: "Other Diagnosed Clotting Disorder",
+		label: "Other Clotting Disorder",
 		section: "bleeding",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]
 	},
@@ -210,7 +210,7 @@ let surveyData = {
 	22: {
 		id:"procedures3",
 		ans: 16,
-		col: 1,
+		col: 2,
 		label: "Valve Replacement/Repair",
 		section: "procedures",
 		elements: [{ type: "checkbox", data: "binary", choices: false }]

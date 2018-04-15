@@ -10,13 +10,6 @@ class RiskTable extends Component {
 
 	render () {
 
-/*One last trick: for the "1 Year" column under "Tissue Expander," 
-any result that is smaller than the number immediately to its left should be overwritten to say ">X%" where X% is the value 
-in the column immediately to its left. 
-In other words and for example, you cannot have a risk of surgical site infection that is 9% within 30 days but only 3% within 1 year, as 1 year encompasses 30 days.*/
-
-//determine if we need to override the tissue expander 1 year cell
-
 		return (
 
 			<div id="riskTableSection">
@@ -45,85 +38,85 @@ In other words and for example, you cannot have a risk of surgical site infectio
 			<tbody>
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader riskTableYAxisColMainHeader">Overall Surgical Complications<sup className="headerSuperScript">1</sup></td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[6]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[6]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
-					( ((1/(1+Math.exp(-parseFloat(this.props.data[0]))))*100).toFixed(1) <= ((1/(1+Math.exp(-parseFloat(this.props.data[6]))))*100).toFixed(1) ) ?
+					( this.props.data[0] <= this.props.data[6] ) ?
 
-						">" +  ((1/(1+Math.exp(-parseFloat(this.props.data[6]))))*100).toFixed(1) :  ((1/(1+Math.exp(-parseFloat(this.props.data[0]))))*100).toFixed(1)						
+						">" +  this.props.data[6] :  this.props.data[0]						
 					}
 					%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[18]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[19]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[20]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[14]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[18]}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[19]}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[20]}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[14]}%</td>
 			</tr>
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Surgical Site Infection<sup className="headerSuperScript">2</sup></td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[8]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[8]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
 
-					( ((1/(1+Math.exp(-parseFloat(this.props.data[1]))))*100).toFixed(1) <= ((1/(1+Math.exp(-parseFloat(this.props.data[8]))))*100).toFixed(1) ) ?
+					( this.props.data[1] <= this.props.data[8] ) ?
 
-					">" + ((1/(1+Math.exp(-parseFloat(this.props.data[8]))))*100).toFixed(1)  :  ((1/(1+Math.exp(-parseFloat(this.props.data[1]))))*100).toFixed(1)
+					">" + this.props.data[8]  :  this.props.data[1]
 
 				}
 
 					%</td>
 				
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[21]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[22]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[23]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[21]}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[22]}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[23]}%</td>
 				<td className="riskTableDataCell emptyRiskCell"></td>
 			</tr>
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Seroma<sup className="headerSuperScript">1</sup></td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[9]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[9]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
 
-					( ((1/(1+Math.exp(-parseFloat(this.props.data[2]))))*100).toFixed(1) <=  ((1/(1+Math.exp(-parseFloat(this.props.data[9]))))*100).toFixed(1) ) ?
+					( this.props.data[2] <=  this.props.data[9] ) ?
 
-					">" + ((1/(1+Math.exp(-parseFloat(this.props.data[9]))))*100).toFixed(1) : ((1/(1+Math.exp(-parseFloat(this.props.data[2]))))*100).toFixed(1)
+					">" + this.props.data[9] : this.props.data[2]
 
 				}
 
 				%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[24]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[25]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[26]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[24]}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[25]}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[26]}%</td>
 				<td className="riskTableDataCell emptyRiskCell"></td>
 			</tr>
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Dehiscence<sup className="headerSuperScript">1</sup></td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[10]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[10]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
 
-					( ((1/(1+Math.exp(-parseFloat(this.props.data[3]))))*100).toFixed(1) <= ((1/(1+Math.exp(-parseFloat(this.props.data[10]))))*100).toFixed(1) ) ? 
+					( this.props.data[3] <= this.props.data[10] ) ? 
 
-					">" + ((1/(1+Math.exp(-parseFloat(this.props.data[10]))))*100).toFixed(1)  : ((1/(1+Math.exp(-parseFloat(this.props.data[3]))))*100).toFixed(1) 
+					">" + this.props.data[10]  : this.props.data[3] 
 				}
 
 				%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[27]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[28]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[29]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[27]}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[28]}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[29]}%</td>
 				<td className="riskTableDataCell emptyRiskCell"></td>
 			</tr>
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Flap Loss (Partial or Total)<sup className="headerSuperScript">1</sup></td>
 				<td className="riskTableDataCell greyRiskCell" colSpan="2">N/A</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[11]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[30]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[31]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[11]}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[30]}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[31]}%</td>
 				<td className="riskTableDataCell emptyRiskCell"></td>
 			</tr>
 			<tr className="riskTableDataRow">
 				<td className="riskTableHeader indentHeaderText">Explantation</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[5]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[5]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
 
-					( ((1/(1+Math.exp(-parseFloat(this.props.data[4]))))*100).toFixed(1) <= ((1/(1+Math.exp(-parseFloat(this.props.data[5]))))*100).toFixed(1) ) ? 
+					( this.props.data[4] <= this.props.data[5] ) ? 
 
-					">" + ((1/(1+Math.exp(-parseFloat(this.props.data[5]))))*100).toFixed(1) : ((1/(1+Math.exp(-parseFloat(this.props.data[4]))))*100).toFixed(1)
+					">" + this.props.data[5] : this.props.data[4]
 
 				}
 				%</td>
@@ -134,27 +127,27 @@ In other words and for example, you cannot have a risk of surgical site infectio
 			</tr>
 			<tr className="riskTableDataRow secondToLastRow">
 				<td className="riskTableHeader riskTableYAxisColMainHeader">Reoperation<sup className="headerSuperScript">1</sup></td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[12]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[12]}%</td>
 				<td className="riskTableDataCell greyRiskCell">N/A</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[32]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[33]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[34]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[32]}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[33]}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[34]}%</td>
 				<td className="riskTableDataCell emptyRiskCell"></td>
 			</tr>
 			<tr className="riskTableDataRow finalRowOffset">
 				<td className="riskTableHeader riskTableYAxisColMainHeader">Overall 30 Day Medical Complications<sup className="headerSuperScript">2</sup></td>
-				<td className="riskTableDataCell greyRiskCell" colSpan="2">{((1/(1+Math.exp(-parseFloat(this.props.data[13]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[15]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell greyRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[16]))))*100).toFixed(1)}%</td>
-				<td className="riskTableDataCell whiteRiskCell">{((1/(1+Math.exp(-parseFloat(this.props.data[17]))))*100).toFixed(1)}%</td>
+				<td className="riskTableDataCell greyRiskCell" colSpan="2">{this.props.data[13]}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[15]}%</td>
+				<td className="riskTableDataCell greyRiskCell">{this.props.data[16]}%</td>
+				<td className="riskTableDataCell whiteRiskCell">{this.props.data[17]}%</td>
 				<td className="riskTableDataCell emptyRiskCell"></td>
 			</tr>
 			</tbody>
 			</table>
 			{(this.props.showToggle) ?
-							<div style={{display: 'inline', textAlign: 'center', paddingTop: '10px'}}>
-					<div className="checkboxLabel">If you weren't sure about radiation exposure, see how results change by pressing this: </div>
-					<label className="centeredSwitch">
+							<div className="row" id="radiationUncertainContainer">
+					<p id="radiationToggleText">You indicated you were uncertain about radiation after surgery; the results above are shown by default as if you had answered 'no.' Please use the toggle to see how results change if the answer is 'yes.</p>
+					<label className="switch">
 						<input
 							type="checkbox"
 							id="checkboxToggle"

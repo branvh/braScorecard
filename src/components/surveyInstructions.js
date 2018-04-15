@@ -24,7 +24,7 @@ let instructions = {
 		},
 		procedures: {
 			col: 2,
-			headers: ["Have you had any of these procedures?","Procedures Continued:"],
+			headers: ["Your Procedures History (1 of 2):","Your Procedures History (2 of 2):"],
 			title: "procedures",
 			buttons: {
 				forward: true,

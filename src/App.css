@@ -454,3 +454,17 @@ font-size: 16px;
  font-weight: bold;
  color: #814787;
  }
+
+ /* 
+########################### Radiation Toggle in Risk Table Page
+  */
+
+  #radiationUncertainContainer {
+    padding: 15px;
+  }
+
+  #radiationToggleText {
+    float: left;
+    width: 50%;
+    display: inline;
+  }

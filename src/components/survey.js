@@ -88,7 +88,8 @@ class Survey extends Component {
 		output.push(BMI);
 
 		//###########################
-		output.push(0); // age doesn't receive a beta, so pushing a 0 to keep indices correct
+		//Age 
+		output.push(this.state.responses['physique']['physique2']);  
 
 		//###########################
 		//beta 2 - high blood pressure
@@ -252,7 +253,15 @@ class Survey extends Component {
 			return answer
 		})
 
-		this.setState({regressionOutput: regressionOutput, displayRiskTable: true}, () => {console.log(this.state.regressionOutput)})
+		regressionOutput = regressionOutput.map((cur, ind) => {
+
+			return ((1/(1+Math.exp(-parseFloat(cur))))*100).toFixed(1)
+
+		})
+
+		console.log(regressionOutput)
+
+		this.setState({regressionOutput: regressionOutput, displayRiskTable: true}, () => {console.log(this.state.regressionOutput, this.state.betaVector)})
 
 	}
 
@@ -325,11 +334,11 @@ class Survey extends Component {
 	};
 
 	updateRadiation = () => {
-console.log(this.state.betaVector)
+
 		//change the Beta vector question 12 response (pre-radiation) which is located in array index 11 (since array counting starts @ 0 in JavaScript)
 		let newBeta = this.state.betaVector.slice();
 
-		newBeta[11] = (!this.state.radiationToggle) ? 1 : 0;  //since state hasn't changed yet, we negate the toggle in this calculation
+		newBeta[13] = (!this.state.radiationToggle) ? 1 : 0;  //since state hasn't changed yet, we negate the toggle in this calculation
 
 		this.setState({radiationToggle: !this.state.radiationToggle, betaVector: newBeta});
 
@@ -387,7 +396,7 @@ console.log(this.state.betaVector)
 
 		return (
 			<div>
-				<SubHeader />
+				<SubHeader finished={this.state.displayRiskTable}/>
 				<div className="surveyContainer">
 				<RiskTable 
 					data={this.state.regressionOutput} 
@@ -404,3 +413,5 @@ console.log(this.state.betaVector)
 }
 
 export default Survey;
+
+
