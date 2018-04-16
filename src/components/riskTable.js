@@ -40,7 +40,7 @@ class RiskTable extends Component {
 				<td className="riskTableHeader riskTableYAxisColMainHeader">Overall Surgical Complications<sup className="headerSuperScript">1</sup></td>
 				<td className="riskTableDataCell greyRiskCell">{this.props.data[6]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
-					( this.props.data[0] <= this.props.data[6] ) ?
+					( parseFloat(this.props.data[0]) <= parseFloat(this.props.data[6]) ) ?
 
 						">" +  this.props.data[6] :  this.props.data[0]						
 					}
@@ -55,7 +55,7 @@ class RiskTable extends Component {
 				<td className="riskTableDataCell greyRiskCell">{this.props.data[8]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
 
-					( this.props.data[1] <= this.props.data[8] ) ?
+					( parseFloat(this.props.data[1]) <= parseFloat(this.props.data[8]) ) ?
 
 					">" + this.props.data[8]  :  this.props.data[1]
 
@@ -73,7 +73,7 @@ class RiskTable extends Component {
 				<td className="riskTableDataCell greyRiskCell">{this.props.data[9]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
 
-					( this.props.data[2] <=  this.props.data[9] ) ?
+					( parseFloat(this.props.data[2]) <=  parseFloat(this.props.data[9]) ) ?
 
 					">" + this.props.data[9] : this.props.data[2]
 
@@ -90,7 +90,7 @@ class RiskTable extends Component {
 				<td className="riskTableDataCell greyRiskCell">{this.props.data[10]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
 
-					( this.props.data[3] <= this.props.data[10] ) ? 
+					( parseFloat(this.props.data[3]) <= parseFloat(this.props.data[10]) ) ? 
 
 					">" + this.props.data[10]  : this.props.data[3] 
 				}
@@ -114,7 +114,7 @@ class RiskTable extends Component {
 				<td className="riskTableDataCell greyRiskCell">{this.props.data[5]}%</td>
 				<td className="riskTableDataCell greyRiskCell">{
 
-					( this.props.data[4] <= this.props.data[5] ) ? 
+					( parseFloat(this.props.data[4]) <= parseFloat(this.props.data[5]) ) ? 
 
 					">" + this.props.data[5] : this.props.data[4]
 
