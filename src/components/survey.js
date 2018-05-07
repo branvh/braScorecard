@@ -125,8 +125,8 @@ class Survey extends Component {
 
 
 		//#########################
-		//beta 6 - ASA > 3  [i.e. 4 or 5]
-		if (parseFloat(this.state.responses['other']['other0']) > 3) {
+		//beta 6 - ASA > 2  [i.e. 3 4 or 5]
+		if (parseFloat(this.state.responses['other']['other0']) > 2) {
 			output.push(1)
 		} else {
 			output.push(0)
