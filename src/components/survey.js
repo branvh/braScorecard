@@ -80,9 +80,9 @@ class Survey extends Component {
 		//beta 0 - BMI
 		let BMI;
 		if (this.state.metric) {
-			BMI = 10000 * parseFloat(this.state.responses['physique']['physique0']) / (parseFloat(this.state.responses['physique']['physique1']) * parseFloat(this.state.responses['physique']['physique1']) )
+			BMI = parseFloat(this.state.responses['physique']['physique0']) / ( (parseFloat(this.state.responses['physique']['physique1']) * parseFloat(this.state.responses['physique']['physique1']) / 10000 ) )
 		} else {  //not metric
-			BMI = 703 * parseFloat(this.state.responses['physique']['physique0']) / (parseFloat(this.state.responses['physique']['physique1']) * parseFloat(this.state.responses['physique']['physique1'] ) )
+			BMI = ( 703 * parseFloat(this.state.responses['physique']['physique0']) ) / ( (parseFloat(this.state.responses['physique']['physique1']) * parseFloat(this.state.responses['physique']['physique1'] ) ) )
 		}
 
 		output.push(BMI);
